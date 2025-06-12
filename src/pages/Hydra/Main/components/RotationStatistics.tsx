@@ -1,7 +1,8 @@
+import type { FC } from 'react'
+
 import { Hydra } from '@/components'
 import { dataType } from '@/data'
 import type { BarConfig } from '@ant-design/charts'
-import type { FC } from 'react'
 
 const { parseNumber, formatLocalized } = Hydra.Utils
 
@@ -74,14 +75,14 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
     },
     tooltip: {
       items: [
-        (d: { value: number; name: string }, index, data, column) => {
+        (d: { value: number; name: string }) => {
           return formatLocalized(d.value)
         }
       ]
     },
     label: [
       {
-        text: (item: Hydra.Chart.Types.IChartData) => {
+        text: (item: { value: number }) => {
           return item.value > 250000000 ? formatLocalized(item.value) : ''
         },
         position: 'inside',
