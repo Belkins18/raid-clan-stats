@@ -1,0 +1,1 @@
+export { withAntTheme } from './withAntTheme'
