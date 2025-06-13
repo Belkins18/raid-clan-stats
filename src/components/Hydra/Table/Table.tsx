@@ -8,6 +8,7 @@ import { Hydra } from '@/components'
 import type { dataType } from '@/data'
 import { withAntTheme } from '@/hocs'
 
+type DataType = Hydra.Table.Types.DataType
 interface IHydraTableComponent {
   statisticData: dataType.IHydraStatisticsData
 }
@@ -17,8 +18,10 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
 
   const { data = [], loading } = useTableData(statisticData.data)
 
+  const { parseNumberSafe } = Hydra.Utils
+
   const getFieldValue = useCallback(
-    (rowData: Hydra.Table.Types.DataType, keys: Array<keyof Hydra.Table.Types.DataType>) => {
+    <K extends keyof DataType>(rowData: DataType, keys: K[]): DataType[K] | undefined => {
       for (const key of keys) {
         const value = rowData[key]
         if (value !== undefined) return value
@@ -38,7 +41,7 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
     renderKeysUsed
   } = useTableRenderers(getFieldValue)
 
-  const columns: ResizableColumnsType<TableColumnsType<Hydra.Table.Types.DataType>> = useMemo(
+  const columns: ResizableColumnsType<TableColumnsType<DataType>> = useMemo(
     () => [
       {
         title: 'Name',
@@ -49,24 +52,30 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
       },
       {
         title: 'Normal',
-        render: renderNormalDamage
+        render: renderNormalDamage,
+        sorter: (a, b) => parseNumberSafe(a.Normal) - parseNumberSafe(b.Normal)
       },
       {
         title: 'Hard',
-        render: renderHardDamage
+        render: renderHardDamage,
+        sorter: (a, b) => parseNumberSafe(a.Hard) - parseNumberSafe(b.Hard)
       },
       {
         title: 'Brutal',
-        render: renderBrutalDamage
+        render: renderBrutalDamage,
+        sorter: (a, b) => parseNumberSafe(a.Brutal) - parseNumberSafe(b.Brutal)
       },
       {
         title: 'Nightmare',
-        render: renderNightmareDamage
+        render: renderNightmareDamage,
+        sorter: (a, b) => parseNumberSafe(a.Nightmare) - parseNumberSafe(b.Nightmare)
       },
       {
         title: 'Damage',
         render: renderAllDamage,
-        fixed: 'right'
+        fixed: 'right',
+        sorter: (a, b) => a.totalDamage! - b.totalDamage!,
+        defaultSortOrder: 'descend'
       },
       {
         title: 'Activity',

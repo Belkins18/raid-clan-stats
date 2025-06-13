@@ -4,7 +4,7 @@ import { Hydra } from '@/components'
 import { dataType } from '@/data'
 import type { BarConfig } from '@ant-design/charts'
 
-const { parseNumber, formatLocalized } = Hydra.Utils
+const { parseNumberSafe, formatLocalized } = Hydra.Utils
 
 interface IRotationStatisticsProps {
   hydraStatisticData: dataType.IHydraStatisticsData
@@ -30,7 +30,7 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
 
       hydraLevelsWithRate.forEach(({ label, rate }) => {
         const rawValue = item[label as keyof typeof item] || '0'
-        let numericValue = parseNumber(rawValue)
+        let numericValue = parseNumberSafe(rawValue)
 
         numericValue *= rate
 

@@ -5,6 +5,9 @@ import { Tag } from 'antd'
 import { Link } from 'react-router-dom'
 
 import { Hydra } from '@/components'
+import { EHydraLevel } from '@/data/types'
+
+import { useRenderKeysUsed } from './utils'
 
 type DataType = Hydra.Table.Types.DataType
 
@@ -13,13 +16,13 @@ type DataType = Hydra.Table.Types.DataType
  * @param getFieldValue
  */
 export const useTableRenderers = (
-  getFieldValue: (rowData: DataType, keys: Array<keyof DataType>) => any
+  getFieldValue: <K extends keyof DataType>(rowData: DataType, keys: K[]) => DataType[K] | undefined
 ) => {
-  const { formatLocalized, parseNumber } = Hydra.Utils
+  const { formatLocalized, parseNumberSafe } = Hydra.Utils
 
   const renderName = useCallback(
     (_: any, record: DataType) => {
-      const name = getFieldValue(record, ['name']) as string
+      const name = getFieldValue(record, ['name'])
       return <Link to={`${name}`}>{name}</Link>
     },
     [getFieldValue]
@@ -27,60 +30,48 @@ export const useTableRenderers = (
 
   const renderNormalDamage = useCallback(
     (_: any, record: DataType) => {
-      const damage = getFieldValue(record, ['Normal']) as string
-      return damage ? <Tag color={'green'}>{formatLocalized(parseNumber(damage))}</Tag> : '-'
+      const rawValue = getFieldValue(record, [EHydraLevel.normal])
+      const damage = parseNumberSafe(rawValue)
+      return damage > 0 ? <Tag color="green">{formatLocalized(damage)}</Tag> : '-'
     },
     [getFieldValue]
   )
 
   const renderHardDamage = useCallback(
     (_: any, record: DataType) => {
-      const damage = getFieldValue(record, ['Hard']) as string
-      return damage ? <Tag color={'yellow'}>{formatLocalized(parseNumber(damage))}</Tag> : '-'
+      const rawValue = getFieldValue(record, [EHydraLevel.hard])
+      const damage = parseNumberSafe(rawValue)
+      return damage > 0 ? <Tag color="yellow">{formatLocalized(damage)}</Tag> : '-'
     },
     [getFieldValue]
   )
 
   const renderBrutalDamage = useCallback(
     (_: any, record: DataType) => {
-      const damage = getFieldValue(record, ['Brutal']) as string
-      return damage ? <Tag color={'orange'}>{formatLocalized(parseNumber(damage))}</Tag> : '-'
+      const rawValue = getFieldValue(record, [EHydraLevel.brutal])
+      const damage = parseNumberSafe(rawValue)
+      return damage > 0 ? <Tag color="orange">{formatLocalized(damage)}</Tag> : '-'
     },
     [getFieldValue]
   )
 
   const renderNightmareDamage = useCallback(
     (_: any, record: DataType) => {
-      const damage = getFieldValue(record, ['Nightmare']) as string
-      return damage ? <Tag color={'red'}>{formatLocalized(parseNumber(damage))}</Tag> : '-'
+      const rawValue = getFieldValue(record, [EHydraLevel.nightmare])
+      const damage = parseNumberSafe(rawValue)
+      return damage > 0 ? <Tag color="red">{formatLocalized(damage)}</Tag> : '-'
     },
     [getFieldValue]
   )
 
   const renderAllDamage = useCallback(
     (_: any, record: DataType) => {
-      const calculateWeightedSum = (data: typeof record): number => {
-        const normal = parseNumber(getFieldValue(data, ['Normal']) as string)
-        const hard = parseNumber(getFieldValue(data, ['Hard']) as string)
-        const brutal = parseNumber(getFieldValue(data, ['Brutal']) as string)
-        const nightmare = parseNumber(getFieldValue(data, ['Nightmare']) as string)
-
-        return normal * 1 + hard * 2 + brutal * 3 + nightmare * 4
-      }
-
-      const total = calculateWeightedSum(record)
-      return <Tag color={'blue'}>{formatLocalized(total)}</Tag>
+      return <Tag color={'blue'}>{formatLocalized(record.totalDamage)}</Tag>
     },
     [getFieldValue]
   )
 
-  const renderKeysUsed = useCallback(
-    (_: any, record: DataType) => {
-      const value = getFieldValue(record, ['keyUsed']) as string
-      return <>{value}</>
-    },
-    [getFieldValue]
-  )
+  const renderKeysUsed = useRenderKeysUsed(getFieldValue)
 
   return {
     renderName,

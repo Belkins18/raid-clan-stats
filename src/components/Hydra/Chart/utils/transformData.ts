@@ -7,7 +7,7 @@ export const transformData = (
 ): Hydra.Chart.Types.IBasicData[] => {
   if (!inputData) return []
 
-  const { parseNumber, formatLocalized } = Hydra.Utils
+  const { parseNumberSafe, formatLocalized } = Hydra.Utils
   const { hydraLevelsWithRate } = Hydra.Utils.constants
 
   const dataArray = Array.isArray(inputData) ? inputData : [inputData]
@@ -21,7 +21,7 @@ export const transformData = (
     item.data.forEach((userStat) => {
       hydraLevelsWithRate.forEach(({ label, rate }) => {
         const rawValue = userStat[label as keyof typeof userStat] || '0'
-        const numericValue = parseNumber(rawValue)
+        const numericValue = parseNumberSafe(rawValue)
 
         switch (label) {
           case dataType.EHydraLevel.normal:
@@ -46,7 +46,7 @@ export const transformData = (
       item.data.forEach((userStat) => {
         hydraLevelsWithRate.forEach(({ label, rate }) => {
           const rawValue = userStat[label as keyof typeof userStat] || '0'
-          const numericValue = parseNumber(rawValue)
+          const numericValue = parseNumberSafe(rawValue)
           totalDamage += numericValue * rate
         })
       })

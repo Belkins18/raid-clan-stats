@@ -1,4 +1,4 @@
-export { parseNumber } from './parseNumber'
+export { parseNumber, parseNumberSafe } from './parseNumber'
 export { formatLocalized } from './formatLocalized'
 
 export { getWeekNumber } from './getWeekNumber'

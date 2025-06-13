@@ -9,12 +9,11 @@ export type THydraLevel = (typeof EHydraLevel)[keyof typeof EHydraLevel]
 
 export interface IHydraUserStatistic {
   name: string
-  Normal: string
-  Hard: string
-  Brutal: string
-  Nightmare: string
-  damage: string
-  keyUsed: string
+  Normal: string | number
+  Hard: string | number
+  Brutal: string | number
+  Nightmare: string | number
+  keyUsed: string | number
 }
 
 export interface IHydraStatisticsData {

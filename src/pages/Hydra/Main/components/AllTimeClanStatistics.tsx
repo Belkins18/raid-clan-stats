@@ -4,7 +4,7 @@ import { Hydra } from '@/components'
 import { dataType } from '@/data'
 import { DualAxes } from '@ant-design/plots'
 
-const { parseNumber, formatLocalized, convertDateRangeToWeeks } = Hydra.Utils
+const { parseNumberSafe, formatLocalized, convertDateRangeToWeeks } = Hydra.Utils
 const { hydraLevelsWithRate } = Hydra.Utils.constants
 
 interface IAllTimeClanStatisticsProps {
@@ -25,7 +25,7 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
       item.data.forEach((userStat) => {
         hydraLevelsWithRate.forEach(({ label, rate }) => {
           const rawValue = userStat[label as keyof typeof userStat] || '0'
-          const numericValue = parseNumber(rawValue)
+          const numericValue = parseNumberSafe(rawValue)
 
           switch (label) {
             case dataType.EHydraLevel.normal:
