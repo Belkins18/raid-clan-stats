@@ -52,8 +52,15 @@ export default tseslint.config({
   },
 })
 ```
-## git tags + npm version
+# git tags + npm version
 npm version major   # 1.0.0 -> 2.0.0
 npm version minor   # 1.0.0 -> 1.1.0
 npm version patch   # 1.0.0 -> 1.0.1
 git push --follow-tags
+
+# Commit Message Convention
+
+- `feat:` — minor bump
+- `fix:` —  patch bump
+- `feat!:`, `BREAKING CHANGE:` — ломающее изменение (major bump)
+- `docs:`, `chore:` — не вызывает релиза

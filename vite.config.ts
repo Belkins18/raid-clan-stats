@@ -9,6 +9,7 @@ import { version } from './package.json';
 export default defineConfig({
    define: {
     __APP_VERSION__: JSON.stringify(version),
+    __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
   },
   plugins: [react()],
    resolve: {

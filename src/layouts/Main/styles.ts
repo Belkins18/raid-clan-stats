@@ -11,8 +11,7 @@ const header: React.CSSProperties = {
 
 const content: React.CSSProperties = {
   overflow: 'auto',
-  paddingInline: '16px',
-
+  paddingInline: '16px'
 }
 
 const layout = {

@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: 💿 Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🏗 Setup Bun 
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 💿 Install dependencies with Bun
+        run: bun install
+
+      - name: 🗂️ Format code
+        run: bun format
+        
+      - name: 🗂️ Check Lint
+        run: bun lint --fix
+
+      - name: Run semantic-release
+        run: bunx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

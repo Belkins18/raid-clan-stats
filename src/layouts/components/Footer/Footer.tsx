@@ -24,7 +24,10 @@ export const Footer: FC = () => {
   return (
     <Layout.Footer style={style.footer}>
       <LayoutComponents.AudioPlayer playlist={playlist} />©{new Date().getFullYear()} Created by
-      Belkins v.{__APP_VERSION__}
+      Belkins{' '}
+      <p>
+        Build: {__APP_VERSION__} ({__BUILD_DATE__})
+      </p>
     </Layout.Footer>
   )
 }
