@@ -28,7 +28,8 @@ const ThemedApp = () => {
         },
         components: {
           Layout: {
-            headerBg: mode === 'dark' ? '#ffffff' : '#ffffff'
+            headerBg: mode === 'dark' ? '#ffffff' : '#ffffff',
+            footerBg: mode === 'dark' ? '#ffffff' : '#ffffff'
           }
         }
       }}

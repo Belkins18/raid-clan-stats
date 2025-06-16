@@ -52,3 +52,8 @@ export default tseslint.config({
   },
 })
 ```
+## git tags + npm version
+npm version major   # 1.0.0 -> 2.0.0
+npm version minor   # 1.0.0 -> 1.1.0
+npm version patch   # 1.0.0 -> 1.0.1
+git push --follow-tags

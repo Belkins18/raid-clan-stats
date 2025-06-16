@@ -12,31 +12,17 @@ const header: React.CSSProperties = {
 const content: React.CSSProperties = {
   overflow: 'auto',
   paddingInline: '16px',
-  minHeight: 'calc(100vh - 64px)'
-}
 
-const sider: React.CSSProperties = {
-  textAlign: 'center',
-  lineHeight: '120px',
-  color: '#fff',
-  backgroundColor: '#1677ff'
-}
-
-const footer: React.CSSProperties = {
-  textAlign: 'center',
-  paddingInline: '16px'
 }
 
 const layout = {
   display: 'flex',
-  overflow: 'hidden'
-  // flex: 1
+  overflow: 'hidden',
+  minHeight: '100vh'
 }
 
 export const mainStyle = {
   header,
-  sider,
   content,
-  footer,
   layout
 }
