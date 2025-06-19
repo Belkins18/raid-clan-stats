@@ -15,7 +15,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Belkins',
+        name: '[BiБр] Belkins',
         Normal: '',
         Hard: '293 091 208',
         Brutal: '113 965 883',
@@ -31,7 +31,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'mbIk0lo',
+        name: '[BiБр] mykola',
         Normal: '',
         Hard: '258 630 249',
         Brutal: '261 234 030',
@@ -55,7 +55,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'PashaTKO',
+        name: 'BIБP_Pashatko1',
         Normal: '',
         Hard: '219 531 061',
         Brutal: '77 413 686',
@@ -95,7 +95,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Бітанга',
+        name: '(BiБр) Бітанга',
         Normal: '',
         Hard: '32 331 861',
         Brutal: '39 044 732',
@@ -103,7 +103,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Крегул',
+        name: '(BiБр) Крегул',
         Normal: '109 437 977',
         Hard: '65 244 956',
         Brutal: '113 067 988',
@@ -135,7 +135,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Eriddicus',
+        name: 'BIБP-Eriddicus',
         Normal: '70 015 944',
         Hard: '33 267 577',
         Brutal: '91 572 090',
@@ -175,7 +175,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Кіясік',
+        name: '(BiБр) Кіясік',
         Normal: '59 200 131',
         Hard: '',
         Brutal: '',
@@ -196,7 +196,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
     id: '30-04-2025_07-05-2025',
     data: [
       {
-        name: 'Belkins',
+        name: '[BiБр] Belkins',
         Normal: '175 209 157',
         Hard: '423 030 135',
         Brutal: '',
@@ -228,7 +228,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'mbIk0lo',
+        name: '[BiБр] mykola',
         Normal: '',
         Hard: '231 449 669',
         Brutal: '316 122 650',
@@ -252,7 +252,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'PashaTKO',
+        name: 'BIБP_Pashatko1',
         Normal: '',
         Hard: '213 517 400',
         Brutal: '76 554 703',
@@ -276,7 +276,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Крегул',
+        name: '(BiБр) Крегул',
         Normal: '155 076 393',
         Hard: '80 184 933',
         Brutal: '139 590 942',
@@ -324,7 +324,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Eriddicus',
+        name: 'BIБP-Eriddicus',
         Normal: '48 036 170',
         Hard: '28 058 492',
         Brutal: '76 191 070',
@@ -348,7 +348,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Кіясік',
+        name: '(BiБр) Кіясік',
         Normal: '85 890 983',
         Hard: '26 866 847',
         Brutal: '',
@@ -364,7 +364,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Бітанга',
+        name: '(BiБр) Бітанга',
         Normal: '',
         Hard: '',
         Brutal: '',
@@ -393,7 +393,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Belkins',
+        name: '[BiБр] Belkins',
         Normal: '160 519 895',
         Hard: '388 711 709',
         Brutal: '',
@@ -417,7 +417,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'mbIk0lo',
+        name: '[BiБр] mykola',
         Normal: '',
         Hard: '274 545 594',
         Brutal: '300 572 624',
@@ -441,7 +441,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'PashaTKO',
+        name: 'BIБP_Pashatko1',
         Normal: '',
         Hard: '236 476 506',
         Brutal: '82 489 916',
@@ -490,7 +490,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Бітанга',
+        name: '(BiБр) Бітанга',
         Normal: '',
         Hard: '74 809 129',
         Brutal: '49 399 762',
@@ -498,7 +498,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Eriddicus',
+        name: 'BIБP-Eriddicus',
         Normal: '47 861 172',
         Hard: '59 800 818',
         Brutal: '74 223 531',
@@ -506,7 +506,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Крегул',
+        name: '(BiБр) Крегул',
         Normal: '133 084 236',
         Hard: '51 120 432',
         Brutal: '51 062 083',
@@ -562,7 +562,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '⭕️⭕️⭕️'
       },
       {
-        name: 'Кіясік',
+        name: '(BiБр) Кіясік',
         Normal: '',
         Hard: '',
         Brutal: '',
@@ -599,7 +599,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Belkins',
+        name: '[BiБр] Belkins',
         Normal: '',
         Hard: '235 560 124',
         Brutal: '59 333 037',
@@ -615,7 +615,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'mbIk0lo',
+        name: '[BiБр] mykola',
         Normal: '',
         Hard: '288 665 815',
         Brutal: '343 705 700',
@@ -639,7 +639,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'PashaTKO',
+        name: 'BIБP_Pashatko1',
         Normal: '',
         Hard: '185 132 141',
         Brutal: '113 277 541',
@@ -655,7 +655,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Бітанга',
+        name: '(BiБр) Бітанга',
         Normal: '',
         Hard: '107 079 956',
         Brutal: '37 375 027',
@@ -687,7 +687,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Крегул',
+        name: '(BiБр) Крегул',
         Normal: '106 035 665',
         Hard: '46 361 123',
         Brutal: '143 156 825',
@@ -711,7 +711,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Eriddicus',
+        name: 'BIБP-Eriddicus',
         Normal: '68 567 948',
         Hard: '82 969 884',
         Brutal: '70 359 332',
@@ -743,7 +743,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Кіясік',
+        name: '(BiБр) Кіясік',
         Normal: '65 940 029',
         Hard: '',
         Brutal: '',
@@ -796,7 +796,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
     id: '21-05-2025_28-05-2025',
     data: [
       {
-        name: 'Belkins',
+        name: '[BiБр] Belkins',
         Normal: '',
         Hard: '440 005 070',
         Brutal: '109 752 542',
@@ -828,7 +828,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'mbIk0lo',
+        name: '[BiБр] mykola',
         Normal: '',
         Hard: '242 597 600',
         Brutal: '319 976 067',
@@ -844,7 +844,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'PashaTKO',
+        name: 'BIБP_Pashatko1',
         Normal: '',
         Hard: '269 150 088',
         Brutal: '100 378 138',
@@ -884,7 +884,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Бітанга',
+        name: '(BiБр) Бітанга',
         Normal: '',
         Hard: '82 239 539',
         Brutal: '24 363 405',
@@ -908,7 +908,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Крегул',
+        name: '(BiБр) Крегул',
         Normal: '132 635 029',
         Hard: '71 235 876',
         Brutal: '87 169 729',
@@ -924,7 +924,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Eriddicus',
+        name: 'BIБP-Eriddicus',
         Normal: '55 915 653',
         Hard: '55 735 082',
         Brutal: '93 113 153',
@@ -940,7 +940,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Кіясік',
+        name: '(BiБр) Кіясік',
         Normal: '221 229 178',
         Hard: '34 607 824',
         Brutal: '',
@@ -985,7 +985,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
     id: '28-05-2025_04-06-2025',
     data: [
       {
-        name: 'Belkins',
+        name: '[BiБр] Belkins',
         Normal: '',
         Hard: '333 398 737',
         Brutal: '144 963 321',
@@ -1025,7 +1025,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'mbIk0lo',
+        name: '[BiБр] mykola',
         Normal: '',
         Hard: '184 709 917',
         Brutal: '334 133 112',
@@ -1033,7 +1033,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'PashaTKO',
+        name: 'BIБP_Pashatko1',
         Normal: '',
         Hard: '230 845 544',
         Brutal: '119 230 191',
@@ -1089,7 +1089,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Крегул',
+        name: '(BiБр) Крегул',
         Normal: '114 749 731',
         Hard: '76 627 803',
         Brutal: '82 437 935',
@@ -1097,7 +1097,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Бітанга',
+        name: '(BiБр) Бітанга',
         Normal: '',
         Hard: '47 779 331',
         Brutal: '34 804 799',
@@ -1121,7 +1121,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅✅'
       },
       {
-        name: 'Eriddicus',
+        name: 'BIБP-Eriddicus',
         Normal: '62 516 880',
         Hard: '62 843 435',
         Brutal: '48 135 863',
@@ -1145,7 +1145,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: '✅✅⭕️'
       },
       {
-        name: 'Кіясік',
+        name: '(BiБр) Кіясік',
         Normal: '',
         Hard: '',
         Brutal: '33 035 835',
@@ -1191,7 +1191,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: 3
       },
       {
-        name: 'Крегул',
+        name: '(BiБр) Крегул',
         Normal: 102404400,
         Hard: 79845923,
         Brutal: 119974356,
@@ -1207,7 +1207,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: 3
       },
       {
-        name: 'Бітанга',
+        name: '(BiБр) Бітанга',
         Normal: 0,
         Hard: 0,
         Brutal: 0,
@@ -1215,7 +1215,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: 0
       },
       {
-        name: 'PashaTKO',
+        name: 'BIБP_Pashatko1',
         Normal: 0,
         Hard: 297062428,
         Brutal: 125315738,
@@ -1231,7 +1231,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: 3
       },
       {
-        name: 'Eriddicus',
+        name: 'BIБP-Eriddicus',
         Normal: 25095240,
         Hard: 61283755,
         Brutal: 34695023,
@@ -1247,7 +1247,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: 3
       },
       {
-        name: 'mbIk0lo',
+        name: '[BiБр] mykola',
         Normal: 0,
         Hard: 266446293,
         Brutal: 358499505,
@@ -1255,7 +1255,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: 3
       },
       {
-        name: 'Кіясік',
+        name: '(BiБр) Кіясік',
         Normal: 67421276,
         Hard: 0,
         Brutal: 0,
@@ -1295,7 +1295,7 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         keyUsed: 2
       },
       {
-        name: 'Belkins',
+        name: '[BiБр] Belkins',
         Normal: 0,
         Hard: 615070887,
         Brutal: 0,
@@ -1372,6 +1372,211 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [
         Hard: 34378790,
         Brutal: 112808226,
         Nightmare: 283508051,
+        keyUsed: 3
+      }
+    ]
+  },
+  {
+    id: '11-06-2025_18-06-2025',
+    data: [
+      {
+        name: 'Dreadnought UA',
+        Normal: 0,
+        Hard: 139899837,
+        Brutal: 248761357,
+        Nightmare: 375408774,
+        keyUsed: 3
+      },
+      {
+        name: 'NikR0man',
+        Normal: 0,
+        Hard: 110616211,
+        Brutal: 85805623,
+        Nightmare: 65483556,
+        keyUsed: 3
+      },
+      {
+        name: '(BiБр) Крегул',
+        Normal: 143131346,
+        Hard: 90412772,
+        Brutal: 94264528,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: 'Oleg77713',
+        Normal: 87668607,
+        Hard: 100964539,
+        Brutal: 96526557,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: '(BiБр) Бітанга',
+        Normal: 0,
+        Hard: 101627965,
+        Brutal: 42669342,
+        Nightmare: 83826787,
+        keyUsed: 3
+      },
+      {
+        name: 'BIБP_Pashatko1',
+        Normal: 0,
+        Hard: 297456411,
+        Brutal: 93126900,
+        Nightmare: 213758562,
+        keyUsed: 3
+      },
+      {
+        name: 'Radoran',
+        Normal: 0,
+        Hard: 192674186,
+        Brutal: 142631435,
+        Nightmare: 96331320,
+        keyUsed: 3
+      },
+      {
+        name: 'BIБP-Eriddicus',
+        Normal: 30731492,
+        Hard: 43206470,
+        Brutal: 84705927,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: 'pro1ooЯ',
+        Normal: 23871185,
+        Hard: 14318321,
+        Brutal: 0,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: '[BiБр] mykola',
+        Normal: 0,
+        Hard: 310125132,
+        Brutal: 356523554,
+        Nightmare: 141325959,
+        keyUsed: 3
+      },
+      {
+        name: '(BiБр) Кіясік',
+        Normal: 75116635,
+        Hard: 41937454,
+        Brutal: 39528111,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: 'DemolitionMen',
+        Normal: 62256925,
+        Hard: 0,
+        Brutal: 44404664,
+        Nightmare: 66618238,
+        keyUsed: 3
+      },
+      {
+        name: 'МирославUA',
+        Normal: 0,
+        Hard: 256000918,
+        Brutal: 359968351,
+        Nightmare: 428763847,
+        keyUsed: 3
+      },
+      {
+        name: 'BEDbMAK_777',
+        Normal: 0,
+        Hard: 292773868,
+        Brutal: 69507154,
+        Nightmare: 338750455,
+        keyUsed: 3
+      },
+      {
+        name: 'Baks23',
+        Normal: 63977166,
+        Hard: 30972639,
+        Brutal: 6480455,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: '[BiБр] Belkins',
+        Normal: 0,
+        Hard: 395313143,
+        Brutal: 275093099,
+        Nightmare: 536233266,
+        keyUsed: 3
+      },
+      {
+        name: 'Crystal Castle',
+        Normal: 0,
+        Hard: 270805155,
+        Brutal: 173926616,
+        Nightmare: 356278347,
+        keyUsed: 3
+      },
+      {
+        name: 'Ksondr',
+        Normal: 68631913,
+        Hard: 36786923,
+        Brutal: 70195894,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: 'VLAD_XIII',
+        Normal: 13544319,
+        Hard: 13841726,
+        Brutal: 0,
+        Nightmare: 0,
+        keyUsed: 2
+      },
+      {
+        name: 'AZAZEL',
+        Normal: 0,
+        Hard: 80738690,
+        Brutal: 68393271,
+        Nightmare: 135584741,
+        keyUsed: 3
+      },
+      {
+        name: 'Glear20',
+        Normal: 19218624,
+        Hard: 0,
+        Brutal: 43286842,
+        Nightmare: 104345057,
+        keyUsed: 3
+      },
+      {
+        name: 'kill softly',
+        Normal: 22673753,
+        Hard: 28915371,
+        Brutal: 50571546,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: 'ZIGGY',
+        Normal: 16161544,
+        Hard: 0,
+        Brutal: 39503660,
+        Nightmare: 162751273,
+        keyUsed: 3
+      },
+      {
+        name: 'Xopcuk',
+        Normal: 6575744,
+        Hard: 6644371,
+        Brutal: 0,
+        Nightmare: 0,
+        keyUsed: 3
+      },
+      {
+        name: 'bond7728',
+        Normal: 0,
+        Hard: 26688002,
+        Brutal: 124778918,
+        Nightmare: 248194554,
         keyUsed: 3
       }
     ]
