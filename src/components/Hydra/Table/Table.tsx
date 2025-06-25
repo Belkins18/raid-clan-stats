@@ -20,15 +20,17 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
 
   const { parseNumberSafe, formatLocalized } = Hydra.Utils
 
-  console.log([...data].map(item => ({
-    name: item.name,
-    Normal: formatLocalized(item.Normal as number),
-    Hard: formatLocalized(item.Hard as number),
-    Brutal: formatLocalized(item.Brutal as number),
-    Nightmare: formatLocalized(item.Nightmare as number),
-    totalDamage: formatLocalized(item.totalDamage),
-    keyUsed: item.keyUsed,
-  })))
+  console.log(
+    [...data].map((item) => ({
+      name: item.name,
+      Normal: formatLocalized(item.Normal as number),
+      Hard: formatLocalized(item.Hard as number),
+      Brutal: formatLocalized(item.Brutal as number),
+      Nightmare: formatLocalized(item.Nightmare as number),
+      totalDamage: formatLocalized(item.totalDamage),
+      keyUsed: item.keyUsed
+    }))
+  )
 
   const getFieldValue = useCallback(
     <K extends keyof DataType>(rowData: DataType, keys: K[]): DataType[K] | undefined => {
