@@ -83,11 +83,11 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
     label: [
       {
         text: (item: { value: number }) => {
-          return item.value > 250000000 ? formatLocalized(item.value) : ''
+          return item.value > 150000000 ? formatLocalized(item.value) : ''
         },
         position: 'inside',
         style: { fill: '#000', fontWeight: 700, dx: 0 },
-        transform: [{ type: 'overlapHide' }]
+        transform: [{ type: 'overlapHide' }, { type: 'overflowHide' }]
       }
     ]
   } as BarConfig
