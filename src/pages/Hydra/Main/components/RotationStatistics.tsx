@@ -87,7 +87,7 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
         },
         position: 'inside',
         style: { fill: '#000', fontWeight: 700, dx: 0 },
-        transform: [{ type: 'overlapHide' }, { type: 'overflowHide' }]
+        transform: [{ type: 'overlapHide' }]
       }
     ]
   } as BarConfig

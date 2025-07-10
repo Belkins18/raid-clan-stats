@@ -80,7 +80,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         style: { fill: '#000', fontSize: 13, fontWeight: 700, dx: -20, dy: -20 }
       }
     ],
-
+    slider: { x: {} },
     children: [
       {
         data: levelDamageData,
