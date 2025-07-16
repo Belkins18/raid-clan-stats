@@ -48,6 +48,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
       y: {
         grid: true,
         gridLineWidth: 2,
+        titleSpacing: 30,
 
         labelFormatter: (e: number) => `${formatLocalized(e)}`
       },
@@ -65,12 +66,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
           return item.value > 100000000 ? formatLocalized(item.value) : ''
         },
         style: { fill: 'rgba(0,0,0,0.5)', fontWeight: 700, dx: 0 },
-        layout: [
-          { type: 'interval-adjust-position' },
-          { type: 'interval-hide-overlap' },
-          { type: 'adjust-color' },
-          { type: 'overlapHide' }
-        ]
+        layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }, { type: 'overlapHide' }]
       },
       {
         position: 'outside',
@@ -80,7 +76,11 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         style: { fill: '#000', fontSize: 13, fontWeight: 700, dx: -20, dy: -20 }
       }
     ],
-    slider: { x: {} },
+    slider: {
+      x: {
+        labelFormatter: (d: string) => convertDateRangeToWeeks(d),
+      }
+    },
     children: [
       {
         data: levelDamageData,

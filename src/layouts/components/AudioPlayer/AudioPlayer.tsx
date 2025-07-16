@@ -1,10 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  PauseCircleOutlined,
-  PlayCircleOutlined,
-  StepBackwardOutlined,
-  StepForwardOutlined
-} from '@ant-design/icons'
+import { PauseCircleOutlined, PlayCircleOutlined, StepBackwardOutlined, StepForwardOutlined } from '@ant-design/icons'
 import { Button, Flex, Slider, Tooltip, Typography } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import { style } from './audioPlayer.style'
@@ -106,22 +101,12 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ playlist }) => {
       <Flex gap={8} justify="space-between" align="center">
         <Flex gap={8} justify="space-between" align="center">
           <Button icon={<StepBackwardOutlined />} onClick={playPrev} />
-          <Button
-            style={{ width: '64px' }}
-            icon={isPlaying ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
-            onClick={togglePlay}
-          />
+          <Button style={{ width: '64px' }} icon={isPlaying ? <PauseCircleOutlined /> : <PlayCircleOutlined />} onClick={togglePlay} />
           <Button icon={<StepForwardOutlined />} onClick={playNext} />
         </Flex>
 
         <Tooltip title={`Volume: ${(volume * 100).toFixed(0)}%`}>
-          <Slider
-            min={0}
-            max={100}
-            value={volume * 100}
-            onChange={onVolumeChange}
-            style={{ width: '25%' }}
-          />
+          <Slider min={0} max={100} value={volume * 100} onChange={onVolumeChange} style={{ width: '25%' }} />
         </Tooltip>
       </Flex>
 

@@ -11,9 +11,7 @@ interface IRotationStatisticsProps {
 }
 
 export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisticData }) => {
-  const transformDataForChart = (
-    inputData: dataType.IHydraStatisticsData
-  ): Hydra.Chart.Types.IClanResultData[] => {
+  const transformDataForChart = (inputData: dataType.IHydraStatisticsData): Hydra.Chart.Types.IClanResultData[] => {
     if (!inputData) return []
 
     const hydraLevelsWithRate = [

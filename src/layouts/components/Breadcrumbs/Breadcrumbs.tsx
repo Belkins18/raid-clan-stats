@@ -42,10 +42,5 @@ export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items = [] }) => {
     ...dynamicItems
   ]
 
-  return (
-    <Breadcrumb
-      style={{ margin: '16px', textTransform: 'capitalize' }}
-      items={[...items, ...breadcrumbItems]}
-    />
-  )
+  return <Breadcrumb style={{ margin: '16px', textTransform: 'capitalize' }} items={[...items, ...breadcrumbItems]} />
 }

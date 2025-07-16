@@ -11,9 +11,7 @@ interface IAllTimeClanStatisticsProps {
   statisticsData: dataType.IHydraStatisticsData[]
 }
 export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statisticsData }) => {
-  const transformDataForChart = (
-    inputData: dataType.IHydraStatisticsData[]
-  ): Hydra.Chart.Types.IBasicData[] => {
+  const transformDataForChart = (inputData: dataType.IHydraStatisticsData[]): Hydra.Chart.Types.IBasicData[] => {
     if (!inputData) return []
 
     return inputData.map((item) => {
@@ -58,9 +56,7 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
     })
   }
 
-  const levelDamageData: Hydra.Chart.Types.IDualAxesInterval[] = transformDataForChart(
-    statisticsData
-  ).flatMap((item) => [
+  const levelDamageData: Hydra.Chart.Types.IDualAxesInterval[] = transformDataForChart(statisticsData).flatMap((item) => [
     {
       period: item.period,
       type: dataType.EHydraLevel.normal,
@@ -83,9 +79,7 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
     }
   ])
 
-  const totalDamageData: Hydra.Chart.Types.IDualAxesLine[] = transformDataForChart(
-    statisticsData
-  ).flatMap((item) => ({
+  const totalDamageData: Hydra.Chart.Types.IDualAxesLine[] = transformDataForChart(statisticsData).flatMap((item) => ({
     period: item.period,
     damage: item.totalDamage,
     label: item.labelTotalDamage
@@ -114,12 +108,7 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
           return item.value > 1000000000 ? formatLocalized(item.value) : ''
         },
         style: { fill: 'rgba(0,0,0,0.5)', fontWeight: 700, dx: 0 },
-        layout: [
-          { type: 'interval-adjust-position' },
-          { type: 'interval-hide-overlap' },
-          { type: 'adjust-color' },
-          { type: 'overlapHide' }
-        ]
+        layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }, { type: 'overlapHide' }]
       },
       {
         position: 'outside',
@@ -129,7 +118,11 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
         style: { fill: '#000', fontSize: 13, fontWeight: 700, dx: -20, dy: -20 }
       }
     ],
-    slider: { x: {} },
+    slider: {
+      x: {
+        labelFormatter: (d: string) => convertDateRangeToWeeks(d)
+      }
+    },
     children: [
       {
         data: levelDamageData,

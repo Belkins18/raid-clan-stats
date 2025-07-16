@@ -32,26 +32,16 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
     }))
   )
 
-  const getFieldValue = useCallback(
-    <K extends keyof DataType>(rowData: DataType, keys: K[]): DataType[K] | undefined => {
-      for (const key of keys) {
-        const value = rowData[key]
-        if (value !== undefined) return value
-      }
-      return undefined
-    },
-    []
-  )
+  const getFieldValue = useCallback(<K extends keyof DataType>(rowData: DataType, keys: K[]): DataType[K] | undefined => {
+    for (const key of keys) {
+      const value = rowData[key]
+      if (value !== undefined) return value
+    }
+    return undefined
+  }, [])
 
-  const {
-    renderName,
-    renderNormalDamage,
-    renderHardDamage,
-    renderBrutalDamage,
-    renderNightmareDamage,
-    renderAllDamage,
-    renderKeysUsed
-  } = useTableRenderers(getFieldValue)
+  const { renderName, renderNormalDamage, renderHardDamage, renderBrutalDamage, renderNightmareDamage, renderAllDamage, renderKeysUsed } =
+    useTableRenderers(getFieldValue)
 
   const columns: ResizableColumnsType<TableColumnsType<DataType>> = useMemo(
     () => [
@@ -94,15 +84,7 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
         render: renderKeysUsed
       }
     ],
-    [
-      renderName,
-      renderNormalDamage,
-      renderHardDamage,
-      renderBrutalDamage,
-      renderNightmareDamage,
-      renderAllDamage,
-      renderKeysUsed
-    ]
+    [renderName, renderNormalDamage, renderHardDamage, renderBrutalDamage, renderNightmareDamage, renderAllDamage, renderKeysUsed]
   )
 
   const { components, resizableColumns, tableWidth } = useAntdResizableHeader({
