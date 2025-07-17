@@ -8,6 +8,7 @@ import { createRoot } from 'react-dom/client'
 
 import '@/index.css'
 
+// eslint-disable-next-line react-refresh/only-export-components
 const ThemedApp = () => {
   const mode = useThemeStore((state) => state.mode)
 

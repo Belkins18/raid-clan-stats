@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { type FC, useCallback, useMemo } from 'react'
 
 import { Table as AntdTable, type TableColumnsType } from 'antd'
