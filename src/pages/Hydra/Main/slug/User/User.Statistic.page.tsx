@@ -17,19 +17,16 @@ export const StatisticPage = () => {
   useEffect(() => {
     if (!user || !hydraStatisticsData) return
 
-    const userData = hydraStatisticsData.reduce<dataType.IHydraStatisticsData[]>(
-      (acc, statisticsData) => {
-        const { id, data } = statisticsData
-        const dataByUser = data.filter((item) => item.name === user)
+    const userData = hydraStatisticsData.reduce<dataType.IHydraStatisticsData[]>((acc, statisticsData) => {
+      const { id, data } = statisticsData
+      const dataByUser = data.filter((item) => item.name === user)
 
-        if (dataByUser.length) {
-          acc.push({ id, data: dataByUser })
-        }
+      if (dataByUser.length) {
+        acc.push({ id, data: dataByUser })
+      }
 
-        return acc
-      },
-      []
-    )
+      return acc
+    }, [])
 
     setHydraTableData(userData)
   }, [user])

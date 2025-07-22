@@ -1,6 +1,7 @@
 import { type FC } from 'react'
 
 import { Hydra } from '@/components'
+import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
 import { dataType } from '@/data'
 import { DualAxes } from '@ant-design/plots'
 
@@ -48,6 +49,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
       y: {
         grid: true,
         gridLineWidth: 2,
+        titleSpacing: 30,
 
         labelFormatter: (e: number) => `${formatLocalized(e)}`
       },
@@ -64,13 +66,12 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         text: (item: { value: number }) => {
           return item.value > 100000000 ? formatLocalized(item.value) : ''
         },
-        style: { fill: 'rgba(0,0,0,0.5)', fontWeight: 700, dx: 0 },
-        layout: [
-          { type: 'interval-adjust-position' },
-          { type: 'interval-hide-overlap' },
-          { type: 'adjust-color' },
-          { type: 'overlapHide' }
-        ]
+        style: {
+          fill: (d: Hydra.Chart.Types.IDualAxesInterval) => hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+          fontWeight: 700,
+          dx: 0
+        },
+        layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }, { type: 'overlapHide' }]
       },
       {
         position: 'outside',
@@ -80,7 +81,21 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         style: { fill: '#000', fontSize: 13, fontWeight: 700, dx: -20, dy: -20 }
       }
     ],
-
+    legend: {
+      color: {
+        itemMarker: 'rect',
+        itemMarkerFill: (d: { label: string }) => {
+          if (hydraLevelsWithRate.find((item) => item.label === d.label)) {
+            return hydraLevelsWithRate.find((item) => item.label === d.label)?.style.text ?? '#000'
+          }
+        }
+      }
+    },
+    slider: {
+      x: {
+        labelFormatter: (d: string) => convertDateRangeToWeeks(d)
+      }
+    },
     children: [
       {
         data: levelDamageData,
@@ -89,17 +104,25 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         colorField: 'type',
         tooltip: {
           items: [
-            (datum: Hydra.Chart.Types.IDualAxesInterval) => {
-              return formatLocalized(datum.value)
+            (d: Hydra.Chart.Types.IDualAxesInterval) => {
+              return {
+                color: hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+                value: formatLocalized(d.value)
+              }
             }
           ]
         },
-        style: { maxWidth: 80 }
-        // scrollbar: {
-        // 	x: {
-        // 		trackSize: 10,
-        // 	},
-        // },
+        style: {
+          maxWidth: 80,
+          stroke: (d: Hydra.Chart.Types.IDualAxesInterval) => {
+            return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text ?? '#000'
+          },
+          strokeWidth: 1,
+          fill: (d: Hydra.Chart.Types.IDualAxesInterval) => {
+            return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.stroke ?? '#000'
+          },
+          shadowColor: '#fff'
+        }
       },
       {
         data: totalDamageData,

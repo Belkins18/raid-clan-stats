@@ -4,9 +4,7 @@ import { theme as antdTheme, ConfigProvider, type ThemeConfig } from 'antd'
 
 import { useThemeStore } from '@/store'
 
-export const withAntTheme = <TProps extends object>(
-  WrappedComponent: React.ComponentType<TProps>
-) => {
+export const withAntTheme = <TProps extends object>(WrappedComponent: React.ComponentType<TProps>) => {
   const ComponentWithTheme = forwardRef<unknown, TProps>((props, ref) => {
     const mode = useThemeStore((state) => state.mode)
 
@@ -78,9 +76,7 @@ export const withAntTheme = <TProps extends object>(
     )
   })
 
-  ComponentWithTheme.displayName = `withAntTheme(${
-    WrappedComponent.displayName || WrappedComponent.name || 'Component'
-  })`
+  ComponentWithTheme.displayName = `withAntTheme(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`
 
   return ComponentWithTheme
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback } from 'react'
 
@@ -15,9 +16,7 @@ type DataType = Hydra.Table.Types.DataType
  * Hook for generating render functions for columns Ant Design Table.
  * @param getFieldValue
  */
-export const useTableRenderers = (
-  getFieldValue: <K extends keyof DataType>(rowData: DataType, keys: K[]) => DataType[K] | undefined
-) => {
+export const useTableRenderers = (getFieldValue: <K extends keyof DataType>(rowData: DataType, keys: K[]) => DataType[K] | undefined) => {
   const { formatLocalized, parseNumberSafe } = Hydra.Utils
 
   const renderName = useCallback(

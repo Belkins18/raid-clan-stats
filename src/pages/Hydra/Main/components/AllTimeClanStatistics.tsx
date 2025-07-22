@@ -11,9 +11,7 @@ interface IAllTimeClanStatisticsProps {
   statisticsData: dataType.IHydraStatisticsData[]
 }
 export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statisticsData }) => {
-  const transformDataForChart = (
-    inputData: dataType.IHydraStatisticsData[]
-  ): Hydra.Chart.Types.IBasicData[] => {
+  const transformDataForChart = (inputData: dataType.IHydraStatisticsData[]): Hydra.Chart.Types.IBasicData[] => {
     if (!inputData) return []
 
     return inputData.map((item) => {
@@ -58,9 +56,7 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
     })
   }
 
-  const levelDamageData: Hydra.Chart.Types.IDualAxesInterval[] = transformDataForChart(
-    statisticsData
-  ).flatMap((item) => [
+  const levelDamageData: Hydra.Chart.Types.IDualAxesInterval[] = transformDataForChart(statisticsData).flatMap((item) => [
     {
       period: item.period,
       type: dataType.EHydraLevel.normal,
@@ -83,9 +79,7 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
     }
   ])
 
-  const totalDamageData: Hydra.Chart.Types.IDualAxesLine[] = transformDataForChart(
-    statisticsData
-  ).flatMap((item) => ({
+  const totalDamageData: Hydra.Chart.Types.IDualAxesLine[] = transformDataForChart(statisticsData).flatMap((item) => ({
     period: item.period,
     damage: item.totalDamage,
     label: item.labelTotalDamage
@@ -113,13 +107,12 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
         text: (item: { value: number }) => {
           return item.value > 1000000000 ? formatLocalized(item.value) : ''
         },
-        style: { fill: 'rgba(0,0,0,0.5)', fontWeight: 700, dx: 0 },
-        layout: [
-          { type: 'interval-adjust-position' },
-          { type: 'interval-hide-overlap' },
-          { type: 'adjust-color' },
-          { type: 'overlapHide' }
-        ]
+        style: {
+          fill: (d: Hydra.Chart.Types.IDualAxesInterval) => hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+          fontWeight: 700,
+          dx: 0
+        },
+        layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }, { type: 'overlapHide' }]
       },
       {
         position: 'outside',
@@ -129,26 +122,50 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
         style: { fill: '#000', fontSize: 13, fontWeight: 700, dx: -20, dy: -20 }
       }
     ],
-
+    legend: {
+      color: {
+        itemMarker: 'rect',
+        itemMarkerFill: (d: { label: string }) => {
+          if (hydraLevelsWithRate.find((item) => item.label === d.label)) {
+            return hydraLevelsWithRate.find((item) => item.label === d.label)?.style.text ?? '#000'
+          }
+        }
+      }
+    },
+    slider: {
+      x: {
+        labelFormatter: (d: string) => convertDateRangeToWeeks(d)
+      }
+    },
     children: [
       {
         data: levelDamageData,
         type: 'interval',
         yField: 'value',
-        colorField: 'type',
+        colorField: (d: Hydra.Chart.Types.IDualAxesInterval) => {
+          return hydraLevelsWithRate.find((item) => item.label === d.type)?.label
+        },
         tooltip: {
           items: [
-            (datum: Hydra.Chart.Types.IDualAxesInterval) => {
-              return formatLocalized(datum.value)
+            (d: Hydra.Chart.Types.IDualAxesInterval) => {
+              return {
+                color: hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+                value: formatLocalized(d.value)
+              }
             }
           ]
         },
-        style: { maxWidth: 80 }
-        // scrollbar: {
-        // 	x: {
-        // 		trackSize: 10,
-        // 	},
-        // },
+        style: {
+          maxWidth: 80,
+          stroke: (d: Hydra.Chart.Types.IDualAxesInterval) => {
+            return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text ?? '#000'
+          },
+          strokeWidth: 1,
+          fill: (d: Hydra.Chart.Types.IDualAxesInterval) => {
+            return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.stroke ?? '#000'
+          },
+          shadowColor: '#fff'
+        }
       },
       {
         data: totalDamageData,

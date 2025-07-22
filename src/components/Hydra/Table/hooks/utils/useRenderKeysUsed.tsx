@@ -6,9 +6,7 @@ import { Hydra } from '@/components'
 
 type DataType = Hydra.Table.Types.DataType
 
-export const useRenderKeysUsed = (
-  getFieldValue: <K extends keyof DataType>(rowData: DataType, keys: K[]) => DataType[K] | undefined
-) => {
+export const useRenderKeysUsed = (getFieldValue: <K extends keyof DataType>(rowData: DataType, keys: K[]) => DataType[K] | undefined) => {
   return useCallback(
     (_: any, record: DataType) => {
       const raw = getFieldValue(record, ['keyUsed'])
