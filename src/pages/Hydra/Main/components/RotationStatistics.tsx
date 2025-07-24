@@ -50,6 +50,7 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
     xField: 'name',
     yField: 'value',
     colorField: 'category',
+    height: 600,
     stack: true,
     sort: {
       reverse: true,
@@ -75,7 +76,6 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
 
     style: {
       stroke: (d: Hydra.Chart.Types.IClanResultData) => {
-        console.log(d)
         return hydraLevelsWithRate.find((item) => item.label === d.category)?.style.text ?? '#000'
       },
       strokeWidth: 10,
