@@ -50,7 +50,7 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
     xField: 'name',
     yField: 'value',
     colorField: 'category',
-    height: 600,
+    height: 700,
     stack: true,
     sort: {
       reverse: true,
