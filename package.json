@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ant-design/charts": "^2.3.0",
+    "@supabase/supabase-js": "^2.54.0",
     "antd": "^5.25.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
