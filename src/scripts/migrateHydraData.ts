@@ -1,17 +1,48 @@
 import { hydraStatisticsData } from '../data'
 import supabase from '../lib/supabaseClient'
 
+// bun run src/scripts/migrateHydraData.ts
+
 async function migrateHydraData() {
   console.log('🚀 Starting migration...')
 
   for (const rotation of hydraStatisticsData) {
-    const { error: statError } = await supabase.from('hydra_statistics').insert([{ id: rotation.id }])
+    // 1. Проверяем, есть ли такая ротация уже в базе
+    const { data: existingRotation, error: fetchError } = await supabase
+      .from('hydra_statistics')
+      .select('id')
+      .eq('id', rotation.id)
+      .single()
 
-    if (statError && statError.code !== '23505') {
-      console.error(`❌ Error inserting period ${rotation.id}:`, statError)
+    if (fetchError && fetchError.code !== 'PGRST116') {
+      // PGRST116 = no rows found
+      console.error(`❌ Error checking rotation ${rotation.id}:`, fetchError)
       continue
     }
 
+    if (!existingRotation) {
+      // Если нет — вставляем
+      const { error: statError } = await supabase.from('hydra_statistics').insert([{ id: rotation.id }])
+
+      if (statError) {
+        console.error(`❌ Error inserting rotation ${rotation.id}:`, statError)
+        continue
+      }
+
+      console.log(`📦 Created rotation ${rotation.id}`)
+    } else {
+      console.log(`↩ Rotation ${rotation.id} already exists, skipping creation`)
+    }
+
+    // 2. Удаляем старые данные пользователей для этой ротации
+    const { error: deleteError } = await supabase.from('hydra_user_statistics').delete().eq('hydra_id', rotation.id)
+
+    if (deleteError) {
+      console.error(`❌ Error deleting old users for ${rotation.id}:`, deleteError)
+      continue
+    }
+
+    // 3. Вставляем свежие данные пользователей
     const rows = rotation.data.map((user) => ({
       hydra_id: rotation.id,
       name: user.name,
@@ -35,5 +66,3 @@ async function migrateHydraData() {
 }
 
 migrateHydraData()
-
-// bun run src/scripts/migrateHydraData.ts

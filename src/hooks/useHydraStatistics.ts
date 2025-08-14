@@ -2,16 +2,23 @@ import { useEffect, useState } from 'react'
 
 import { dataType } from '@/data'
 import supabase from '@/lib/supabaseClient'
+import { useHydraStore } from '@/store'
+
+const CACHE_TTL = 1000 * 60 * 60 // 60 минут
 
 export const useHydraStatistics = () => {
-  const [data, setData] = useState<dataType.IHydraStatisticsData[]>([])
-  const [loading, setLoading] = useState(true)
+  const { statistics, lastUpdated, setStatistics } = useHydraStore()
+  const [loading, setLoading] = useState(statistics.length === 0)
 
   useEffect(() => {
+    const needUpdate = !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
+
+    if (!needUpdate) return
+
     const fetchData = async () => {
       setLoading(true)
 
-      const { data: statistics } = await supabase
+      const { data: statisticsData } = await supabase
         .from('hydra_statistics')
         .select(
           `
@@ -28,8 +35,8 @@ export const useHydraStatistics = () => {
         )
         .order('id', { ascending: false })
 
-      if (statistics) {
-        const formatted: dataType.IHydraStatisticsData[] = statistics
+      if (statisticsData) {
+        const formatted: dataType.IHydraStatisticsData[] = statisticsData
           .map((p) => ({
             id: p.id,
             data: p.hydra_user_statistics.map((row) => ({
@@ -46,18 +53,15 @@ export const useHydraStatistics = () => {
               const [day, month, year] = id.split('_')[0].split('-').map(Number)
               return new Date(year, month - 1, day).getTime()
             }
-
             return parseDate(a.id) - parseDate(b.id)
           })
-
-        setData(formatted)
+        setStatistics(formatted)
       }
-
       setLoading(false)
     }
 
     fetchData()
-  }, [])
+  }, [lastUpdated, statistics.length, setStatistics])
 
-  return { data, loading }
+  return { data: statistics, loading }
 }

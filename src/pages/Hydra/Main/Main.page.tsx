@@ -5,7 +5,8 @@ import { Card, Flex, Select, Typography } from 'antd'
 import { Hydra } from '@/components'
 import { dataType } from '@/data'
 import { useHydraStatistics } from '@/hooks'
-import { useHydraStore } from '@/store/hydra.store'
+import { useHydraStore } from '@/store'
+
 import { AllTimeClanStatistics, RotationStatistics } from './components'
 
 const { Text } = Typography
