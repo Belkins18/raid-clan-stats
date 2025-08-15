@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { Card, Checkbox, Flex, type CheckboxProps } from 'antd'
 import { useParams } from 'react-router-dom'
 
-import { dataType, hydraStatisticsData } from '@/data'
+import { dataType } from '@/data'
+import { useHydraStatistics } from '@/hooks'
 import { UserStatistics } from './components'
 
 export const StatisticPage = () => {
@@ -11,6 +12,7 @@ export const StatisticPage = () => {
 
   const { user } = params
 
+  const { data: hydraStatisticsData, loading } = useHydraStatistics()
   const [hydraTableData, setHydraTableData] = useState<dataType.IHydraStatisticsData[]>()
   const [checked, setChecked] = useState(true)
 
@@ -39,7 +41,7 @@ export const StatisticPage = () => {
 
   return (
     <Flex gap="middle" vertical>
-      <Card size="small" title="[BiБP] Hydra Statistics:">
+      <Card size="small" title="[BiБP] Hydra Statistics:" loading={loading}>
         <Checkbox checked={checked} onChange={onShowRated}>
           {label}
         </Checkbox>

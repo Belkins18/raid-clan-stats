@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react'
 import { Card, Flex, Select, Typography } from 'antd'
 
 import { Hydra } from '@/components'
-import { dataType, hydraStatisticsData } from '@/data'
-import { useHydraStore } from '@/store/hydra.store'
+import { dataType } from '@/data'
+import { useHydraStatistics } from '@/hooks'
+import { useHydraStore } from '@/store'
+
 import { AllTimeClanStatistics, RotationStatistics } from './components'
 
 const { Text } = Typography
@@ -13,6 +15,7 @@ export const Layout = () => {
   const period = useHydraStore((state) => state.period)
   const changePeriod = useHydraStore((state) => state.changePeriod)
 
+  const { data: hydraStatisticsData, loading } = useHydraStatistics()
   const [hydraTableData, setHydraTableData] = useState<dataType.IHydraStatisticsData>()
 
   const handleChange = (value: string) => {
@@ -20,14 +23,15 @@ export const Layout = () => {
   }
 
   useEffect(() => {
-    const dataById = hydraStatisticsData.find((item) => item.id === period)
+    if (loading) return
+    const dataById = hydraStatisticsData && hydraStatisticsData.find((item) => item.id === period)
 
     setHydraTableData(dataById)
-  }, [period])
+  }, [period, loading])
 
   return (
     <Flex gap="middle" vertical>
-      <Card size="small" title="[BiБP] Hydra Statistics:">
+      <Card size="small" loading={loading} title="[BiБP] Hydra Statistics:">
         <Text>Select hydra rotation period:</Text>
         <Select
           defaultValue={period}

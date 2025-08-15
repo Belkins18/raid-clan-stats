@@ -87,6 +87,7 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
 
   const config = {
     xField: 'period',
+    height: 600,
     axis: {
       y: {
         grid: true,
