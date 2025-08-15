@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Card, Flex, Select, Typography } from 'antd'
 
 import { Hydra } from '@/components'
-import { dataType } from '@/data'
+import { dataType, hydraStatisticsData as _data } from '@/data'
 import { useHydraStatistics } from '@/hooks'
 import { useHydraStore } from '@/store'
 
@@ -29,6 +29,12 @@ export const Layout = () => {
     setHydraTableData(dataById)
   }, [period, loading])
 
+
+  const localData = _data.find(item => item)!
+  console.log(localData)
+
+  const isUseLocal = true
+
   return (
     <Flex gap="middle" vertical>
       <Card size="small" loading={loading} title="[BiБP] Hydra Statistics:">
@@ -46,7 +52,7 @@ export const Layout = () => {
         />
         {hydraTableData && (
           <>
-            <Hydra.Table.Component statisticData={hydraTableData} />
+            <Hydra.Table.Component statisticData={isUseLocal ? localData : hydraTableData} />
             <RotationStatistics hydraStatisticData={hydraTableData} />
           </>
         )}
