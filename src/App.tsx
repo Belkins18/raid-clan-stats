@@ -12,7 +12,7 @@ function App() {
       label: 'Chimera'
     }
   ]
-
+  localStorage.clear()
   return <MainLayout pageNavigation={pages} />
 }
 

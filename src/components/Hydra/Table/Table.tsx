@@ -103,6 +103,15 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
       dataSource={data}
       sticky
       loading={loading}
+      expandable={{
+        expandedRowRender: (record) => {
+          return (
+            <>
+              <pre>{JSON.stringify(record, null, 2)}</pre>
+            </>
+          )
+        }
+      }}
       scroll={{ x: tableWidth }}
     />
   )

@@ -3,19 +3,22 @@ import { useEffect, useState } from 'react'
 import { Card, Flex, Select, Typography } from 'antd'
 
 import { Hydra } from '@/components'
-import { dataType } from '@/data'
+import { dataType, hydraStatisticsData as _data } from '@/data'
 import { useHydraStatistics } from '@/hooks'
 import { useHydraStore } from '@/store'
 
 import { AllTimeClanStatistics, RotationStatistics } from './components'
 
 const { Text } = Typography
+const LOCAL_SETUP = true
 
 export const Layout = () => {
   const period = useHydraStore((state) => state.period)
   const changePeriod = useHydraStore((state) => state.changePeriod)
 
-  const { data: hydraStatisticsData, loading } = useHydraStatistics()
+  const { data: hydraStatisticsData, loading } = useHydraStatistics({
+    localSetup: LOCAL_SETUP
+  })
   const [hydraTableData, setHydraTableData] = useState<dataType.IHydraStatisticsData>()
 
   const handleChange = (value: string) => {
@@ -28,6 +31,11 @@ export const Layout = () => {
 
     setHydraTableData(dataById)
   }, [period, loading])
+
+  const localData = _data.find((item) => item)!
+  console.log('localData: ', localData)
+  console.log('hydraTableData: ', hydraTableData)
+  console.log('hydraStatisticsData: ', hydraStatisticsData)
 
   return (
     <Flex gap="middle" vertical>
@@ -46,7 +54,7 @@ export const Layout = () => {
         />
         {hydraTableData && (
           <>
-            <Hydra.Table.Component statisticData={hydraTableData} />
+            <Hydra.Table.Component statisticData={LOCAL_SETUP ? localData : hydraTableData} />
             <RotationStatistics hydraStatisticData={hydraTableData} />
           </>
         )}

@@ -11,6 +11,8 @@ interface IAllTimeClanStatisticsProps {
   statisticsData: dataType.IHydraStatisticsData[]
 }
 export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statisticsData }) => {
+  console.log(statisticsData)
+
   const transformDataForChart = (inputData: dataType.IHydraStatisticsData[]): Hydra.Chart.Types.IBasicData[] => {
     if (!inputData) return []
 
