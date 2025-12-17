@@ -6,7 +6,7 @@ interface HydraState {
   period?: string
   statistics: dataType.IHydraStatisticsData[]
   lastUpdated?: number
-  changePeriod: (value: string) => void
+  changePeriod: (value: string | undefined) => void
   setStatistics: (data: dataType.IHydraStatisticsData[]) => void
 }
 export const useHydraStore = create<HydraState>()(

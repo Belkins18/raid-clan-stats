@@ -8,20 +8,22 @@ const CACHE_TTL = 1000 * 60 * 60 // 60 минут
 
 interface IUseHydraStatisticsProps {
   localSetup: boolean
+  yearCode?: string
 }
 
-export const useHydraStatistics = ({ localSetup }: IUseHydraStatisticsProps) => {
+export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatisticsProps) => {
   const { statistics, lastUpdated, setStatistics } = useHydraStore()
   const [loading, setLoading] = useState(statistics.length === 0)
 
   useEffect(() => {
+
     const needUpdate = !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
 
     if (!needUpdate) return
-
+   
+   
     const fetchData = async () => {
       setLoading(true)
-
       if (localSetup) {
         setStatistics([newRotation])
       } else {
@@ -69,7 +71,18 @@ export const useHydraStatistics = ({ localSetup }: IUseHydraStatisticsProps) => 
     }
 
     fetchData()
-  }, [lastUpdated, statistics.length, setStatistics])
+  }, [lastUpdated])
 
-  return { data: statistics, loading }
+
+  console.log('useHydraStatistics => statistics: ', yearCode, statistics)
+  const filteredStatisticsByYear = yearCode ? statistics.filter((item) => getYearFromRotationId(item.id) === yearCode) : statistics
+
+  return { data: filteredStatisticsByYear, loading }
+}
+
+function getYearFromRotationId(id: string): string {
+  const [, end] = id.split('_')
+  const [, , year] = end.split('-').map(String)
+  console.log('getYearFromRotationId: ', year)
+  return year
 }
