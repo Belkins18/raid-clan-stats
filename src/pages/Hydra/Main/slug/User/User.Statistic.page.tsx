@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { dataType } from '@/data'
 import { useHydraStatistics } from '@/hooks'
+
 import { UserStatistics } from './components'
 
 export const StatisticPage = () => {
@@ -12,7 +13,10 @@ export const StatisticPage = () => {
 
   const { user } = params
 
-  const { data: hydraStatisticsData, loading } = useHydraStatistics()
+  const { data: hydraStatisticsData, loading } = useHydraStatistics({
+    localSetup: import.meta.env.MODE === 'development'
+  })
+
   const [hydraTableData, setHydraTableData] = useState<dataType.IHydraStatisticsData[]>()
   const [checked, setChecked] = useState(true)
 
@@ -45,6 +49,7 @@ export const StatisticPage = () => {
         <Checkbox checked={checked} onChange={onShowRated}>
           {label}
         </Checkbox>
+
         {hydraTableData && <UserStatistics statisticsData={hydraTableData} checked={checked} />}
       </Card>
     </Flex>

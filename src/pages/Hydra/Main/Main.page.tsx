@@ -11,14 +11,13 @@ import { useHydraStore } from '@/store'
 import { AllTimeClanStatistics, RotationStatistics } from './components'
 
 const { Text } = Typography
-const LOCAL_SETUP = true
 
 export const Layout = () => {
   const [yearCode, setYearCode] = useState<string>('2025')
   const { period, changePeriod } = useHydraStore()
 
   const { data: hydraStatisticsData, loading } = useHydraStatistics({
-    localSetup: LOCAL_SETUP,
+    localSetup: import.meta.env.MODE === 'development',
     yearCode
   })
 

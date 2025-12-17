@@ -16,12 +16,10 @@ export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatistics
   const [loading, setLoading] = useState(statistics.length === 0)
 
   useEffect(() => {
-
     const needUpdate = !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
 
     if (!needUpdate) return
-   
-   
+
     const fetchData = async () => {
       setLoading(true)
       if (localSetup) {
@@ -73,8 +71,6 @@ export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatistics
     fetchData()
   }, [lastUpdated])
 
-
-  console.log('useHydraStatistics => statistics: ', yearCode, statistics)
   const filteredStatisticsByYear = yearCode ? statistics.filter((item) => getYearFromRotationId(item.id) === yearCode) : statistics
 
   return { data: filteredStatisticsByYear, loading }
@@ -83,6 +79,5 @@ export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatistics
 function getYearFromRotationId(id: string): string {
   const [, end] = id.split('_')
   const [, , year] = end.split('-').map(String)
-  console.log('getYearFromRotationId: ', year)
   return year
 }
