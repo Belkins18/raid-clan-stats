@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 
-import { Button, Layout, Menu, type MenuProps } from 'antd'
+import { Button, Layout, Menu, type MenuProps, theme } from 'antd'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { LayoutComponents } from '@/layouts'
@@ -17,6 +17,7 @@ interface IHeaderComponentProps {
 export const Header: FC<IHeaderComponentProps> = ({ pageNavigation }) => {
   const toggle = useThemeStore((state) => state.toggle)
   const mode = useThemeStore((state) => state.mode)
+  const { token } = theme.useToken()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -27,16 +28,9 @@ export const Header: FC<IHeaderComponentProps> = ({ pageNavigation }) => {
   }
 
   return (
-    <Layout.Header style={style.header}>
+    <Layout.Header style={{ ...style.header, background: token.colorBgContainer }}>
       <LayoutComponents.Brand text="[BiБр]" />
-      <Menu
-        // theme={mode}
-        mode="horizontal"
-        selectedKeys={[currentPath]}
-        onClick={menuHandler}
-        items={pageNavigation ?? []}
-        style={style.headerMenu}
-      />
+      <Menu mode="horizontal" selectedKeys={[currentPath]} onClick={menuHandler} items={pageNavigation ?? []} style={style.headerMenu} />
       <Button onClick={toggle} icon={mode === 'dark' ? <SunFilled /> : <SunOutlined />} />
     </Layout.Header>
   )

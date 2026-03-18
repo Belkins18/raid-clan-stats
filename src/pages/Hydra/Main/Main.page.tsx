@@ -1,9 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 
-import { Card, Flex, Select, Space, Typography } from 'antd'
+import { Alert, Card, Flex, Select, Space, Typography } from 'antd'
 
 import { Hydra } from '@/components'
+import { AVAILABLE_YEARS, getDefaultYear } from '@/constants'
 import { dataType } from '@/data'
 import { useHydraStatistics } from '@/hooks'
 import { useHydraStore } from '@/store'
@@ -13,10 +13,14 @@ import { AllTimeClanStatistics, RotationStatistics } from './components'
 const { Text } = Typography
 
 export const Layout = () => {
-  const [yearCode, setYearCode] = useState<string>('2025')
+  const [yearCode, setYearCode] = useState<string>(getDefaultYear())
   const { period, changePeriod } = useHydraStore()
 
-  const { data: hydraStatisticsData, loading } = useHydraStatistics({
+  const {
+    data: hydraStatisticsData,
+    loading,
+    error
+  } = useHydraStatistics({
     localSetup: import.meta.env.MODE === 'development',
     yearCode
   })
@@ -41,25 +45,12 @@ export const Layout = () => {
 
   return (
     <Flex gap="middle" vertical>
+      {error && <Alert message="Error loading statistics" description={error.message} type="error" showIcon />}
       <Card size="small" loading={loading} title="[BiБP] Hydra Statistics:">
         <Flex gap="small" vertical>
           <Space>
             <Text>Select year:</Text>
-            <Select
-              defaultValue={yearCode.toString()}
-              onChange={yearsSelectHandler}
-              options={[
-                {
-                  value: '2025',
-                  label: 2025
-                },
-                {
-                  value: '2026',
-                  label: 2026
-                }
-              ]}
-              style={{ width: '100%' }}
-            />
+            <Select defaultValue={yearCode.toString()} onChange={yearsSelectHandler} options={AVAILABLE_YEARS} style={{ width: '100%' }} />
           </Space>
           <Flex vertical>
             <Text>Select hydra rotation period:</Text>

@@ -6,7 +6,7 @@ import { type ResizableColumnsType, useAntdResizableHeader } from 'use-antd-resi
 
 import { Hydra } from '@/components'
 import type { dataType } from '@/data'
-import { withAntTheme } from '@/hocs'
+import { ExpandedRow } from './ExpandedRow'
 
 type DataType = Hydra.Table.Types.DataType
 interface IHydraTableComponent {
@@ -19,7 +19,6 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
   const { data = [], loading } = useTableData(statisticData.data)
 
   const { parseNumberSafe, formatLocalized } = Hydra.Utils
-
   console.log(
     [...data].map((item) => ({
       name: item.name,
@@ -81,6 +80,7 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
       },
       {
         title: 'Activity',
+        width: 80,
         render: renderKeysUsed
       }
     ],
@@ -95,6 +95,20 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
     }
   })
 
+  const expandedRowRender = useCallback(
+    (record: DataType, rowIndex?: number, indent?: unknown, expanded?: boolean) => {
+      if (!expanded) return null
+
+      const clanRotationDamage = data.reduce((acc, cur) => {
+        acc += cur.totalDamage
+        return acc
+      }, 0)
+
+      return <ExpandedRow record={record} clanRotationDamage={clanRotationDamage} />
+    },
+    [data]
+  )
+
   return (
     <AntdTable
       rowKey="id"
@@ -104,17 +118,11 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
       sticky
       loading={loading}
       expandable={{
-        expandedRowRender: (record) => {
-          return (
-            <>
-              <pre>{JSON.stringify(record, null, 2)}</pre>
-            </>
-          )
-        }
+        expandedRowRender
       }}
       scroll={{ x: tableWidth }}
     />
   )
 }
 
-export const Table = withAntTheme(HydraTableComponent)
+export const Table = HydraTableComponent

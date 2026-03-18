@@ -1,1 +1,1 @@
-export { withAntTheme } from './withAntTheme'
+export { WithAntTheme } from './withAntTheme'
