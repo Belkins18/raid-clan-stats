@@ -1,0 +1,22 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.row > * {
+  min-width: 0;
+}
+
+.row-item {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+@media (min-width: 769px) {
+  .row {
+    flex-direction: row;
+  }
+}

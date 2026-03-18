@@ -35,7 +35,7 @@ export const StatisticPage = () => {
     }, [])
 
     setHydraTableData(userData)
-  }, [user])
+  }, [user, hydraStatisticsData])
 
   const onShowRated: CheckboxProps['onChange'] = (e) => {
     setChecked(e.target.checked)

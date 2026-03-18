@@ -1,5 +1,6 @@
 import '@/App.css'
 import { MainLayout } from './layouts/Main'
+import { WithAntTheme } from './hocs/withAntTheme'
 
 function App() {
   const pages = [
@@ -12,8 +13,11 @@ function App() {
       label: 'Chimera'
     }
   ]
-  localStorage.clear()
-  return <MainLayout pageNavigation={pages} />
+  return (
+    <WithAntTheme>
+      <MainLayout pageNavigation={pages} />
+    </WithAntTheme>
+  )
 }
 
 export default App

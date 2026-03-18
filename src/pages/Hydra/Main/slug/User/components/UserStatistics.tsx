@@ -3,6 +3,7 @@ import { type FC } from 'react'
 import { Hydra } from '@/components'
 import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
 import { dataType } from '@/data'
+import { useThemeStore } from '@/store'
 import { DualAxes } from '@ant-design/plots'
 
 const { formatLocalized, convertDateRangeToWeeks } = Hydra.Utils
@@ -12,6 +13,9 @@ interface IUserStatisticsProps {
   checked: boolean
 }
 export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, checked }) => {
+  const mode = useThemeStore((state) => state.mode)
+  const isDark = mode === 'dark'
+
   const transformData = Hydra.Chart.Utils.transformData(statisticsData, checked)
 
   const levelDamageData: Hydra.Chart.Types.IDualAxesInterval[] = transformData.flatMap((item) => [
@@ -44,6 +48,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
   }))
 
   const config = {
+    theme: isDark ? 'classicDark' : 'classic',
     xField: 'period',
     axis: {
       y: {

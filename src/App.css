@@ -1,3 +1,8 @@
 .ant-table-filter-trigger {
   margin: 0 !important;
 }
+
+/* Remove border from horizontal menu */
+.ant-menu-horizontal {
+  border-bottom: none !important;
+}

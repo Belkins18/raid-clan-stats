@@ -2,6 +2,7 @@ import { type FC } from 'react'
 
 import { Hydra } from '@/components'
 import { dataType } from '@/data'
+import { useThemeStore } from '@/store'
 import { DualAxes } from '@ant-design/plots'
 
 const { parseNumberSafe, formatLocalized, convertDateRangeToWeeks } = Hydra.Utils
@@ -11,7 +12,8 @@ interface IAllTimeClanStatisticsProps {
   statisticsData: dataType.IHydraStatisticsData[]
 }
 export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statisticsData }) => {
-  console.log(statisticsData)
+  const mode = useThemeStore((state) => state.mode)
+  const isDark = mode === 'dark'
 
   const transformDataForChart = (inputData: dataType.IHydraStatisticsData[]): Hydra.Chart.Types.IBasicData[] => {
     if (!inputData) return []
@@ -88,6 +90,7 @@ export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({ statist
   }))
 
   const config = {
+    theme: isDark ? 'classicDark' : 'classic',
     xField: 'period',
     height: 600,
     axis: {
