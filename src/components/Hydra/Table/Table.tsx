@@ -96,7 +96,7 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
   })
 
   const expandedRowRender = useCallback(
-    (record: DataType, rowIndex?: number, indent?: unknown, expanded?: boolean) => {
+    (record: DataType, _rowIndex?: number, _indent?: unknown, expanded?: boolean) => {
       if (!expanded) return null
 
       const clanRotationDamage = data.reduce((acc, cur) => {
