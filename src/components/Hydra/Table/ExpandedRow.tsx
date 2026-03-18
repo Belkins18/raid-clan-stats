@@ -68,7 +68,7 @@ const RadarChart = ({ record }: Pick<IExpandedRow, 'record'>) => {
         gridLineWidth: 2,
         gridLineDash: [0, 0],
         labelFormatter: (e: number) => `${formatLocalized(e)}`,
-        gridAreaFill: (dataum: unknown, index: number) => {
+        gridAreaFill: (_dataum: unknown, index: number) => {
           return index % 2 === 1 ? 'rgba(0, 0, 0, 0.04)' : ''
         }
       }
