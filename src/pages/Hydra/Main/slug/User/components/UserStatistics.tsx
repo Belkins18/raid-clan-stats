@@ -83,7 +83,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         text: (item: { damage: number }) => {
           return item.damage > 100000000 ? formatLocalized(item.damage) : ''
         },
-        style: { fill: '#000', fontSize: 13, fontWeight: 700, dx: -20, dy: -20 }
+        style: { fontSize: 13, fontWeight: 700, dx: -20, dy: -20 }
       }
     ],
     legend: {

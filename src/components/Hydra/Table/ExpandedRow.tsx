@@ -1,5 +1,6 @@
 import type { Hydra } from '@/components'
 import { EHydraLevel, type THydraLevel } from '@/data/types'
+import { useThemeStore } from '@/store'
 import { Liquid, Radar } from '@ant-design/plots'
 
 import { formatLocalized, parseNumberSafe, percentFromRounded } from '../utils'
@@ -27,6 +28,9 @@ export const ExpandedRow = ({ record, clanRotationDamage }: IExpandedRow) => {
 }
 
 const RadarChart = ({ record }: Pick<IExpandedRow, 'record'>) => {
+  const mode = useThemeStore((state) => state.mode)
+  const isDark = mode === 'dark'
+
   const transformData = (record: DataType, type: 'Pure Damage' | 'With Koef', withRate?: boolean) => {
     const levels: THydraLevel[] = Object.values(EHydraLevel)
     const hydraLevelsWithRate = {
@@ -50,7 +54,7 @@ const RadarChart = ({ record }: Pick<IExpandedRow, 'record'>) => {
   const kData = transformData(record, 'With Koef', true)
 
   const config = {
-    theme: 'classicDark',
+    theme: isDark ? 'classicDark' : 'classic',
     data: [...pData, ...kData],
     xField: 'item',
     yField: 'score',

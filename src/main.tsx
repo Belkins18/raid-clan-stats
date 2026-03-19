@@ -15,6 +15,12 @@ const ThemedApp = () => {
   const htmlEl = document.querySelector('html')
 
   useEffect(() => {
+    if (import.meta.env.MODE === 'development') {
+      localStorage.clear()
+    }
+  }, [])
+
+  useEffect(() => {
     htmlEl?.setAttribute('data-prefers-color', mode)
   }, [htmlEl, mode])
 
