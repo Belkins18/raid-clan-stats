@@ -1,13 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { dataType, newRotation } from '@/data'
 import supabase from '@/lib/supabaseClient'
 import { useHydraStore } from '@/store'
 import { CACHE_TTL } from '@/constants'
+import type { IClanResultData, IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
+import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
+import { parseNumberSafe, formatLocalized } from '@/components/Hydra/utils'
 
 interface IUseHydraStatisticsProps {
   localSetup: boolean
   yearCode?: string
+}
+
+interface IComputedRotationData {
+  rotation: dataType.IHydraStatisticsData
+  totalDamage: number
+  dualAxesData: {
+    levelDamage: IDualAxesInterval[]
+    totalDamage: IDualAxesLine
+  }
+  columnData: IClanResultData[]
 }
 
 export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatisticsProps) => {
@@ -85,7 +98,72 @@ export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatistics
 
   const filteredStatisticsByYear = yearCode ? statistics.filter((item) => getYearFromRotationId(item.id) === yearCode) : statistics
 
-  return { data: filteredStatisticsByYear, loading, error }
+  const computedData = useMemo<IComputedRotationData[]>(() => {
+    return filteredStatisticsByYear.map((rotation) => {
+      let normalDamage = 0
+      let hardDamage = 0
+      let brutalDamage = 0
+      let nightmareDamage = 0
+
+      rotation.data.forEach((userStat) => {
+        hydraLevelsWithRate.forEach(({ label, rate }) => {
+          const rawValue = userStat[label as keyof typeof userStat] || '0'
+          const numericValue = parseNumberSafe(rawValue)
+          const damageWithRate = numericValue * rate
+
+          switch (label) {
+            case dataType.EHydraLevel.normal:
+              normalDamage += damageWithRate
+              break
+            case dataType.EHydraLevel.hard:
+              hardDamage += damageWithRate
+              break
+            case dataType.EHydraLevel.brutal:
+              brutalDamage += damageWithRate
+              break
+            case dataType.EHydraLevel.nightmare:
+              nightmareDamage += damageWithRate
+              break
+          }
+        })
+      })
+
+      const totalDamage = normalDamage + hardDamage + brutalDamage + nightmareDamage
+
+      const dualAxesData = {
+        levelDamage: [
+          { period: rotation.id, type: dataType.EHydraLevel.normal, value: normalDamage },
+          { period: rotation.id, type: dataType.EHydraLevel.hard, value: hardDamage },
+          { period: rotation.id, type: dataType.EHydraLevel.brutal, value: brutalDamage },
+          { period: rotation.id, type: dataType.EHydraLevel.nightmare, value: nightmareDamage }
+        ],
+        totalDamage: { period: rotation.id, damage: totalDamage, label: formatLocalized(totalDamage) }
+      }
+
+      const columnData: IClanResultData[] = []
+      rotation.data.forEach((item) => {
+        const name = item.name
+        hydraLevelsWithRate.forEach(({ label, rate }) => {
+          const rawValue = item[label as keyof typeof item] || '0'
+          const numericValue = parseNumberSafe(rawValue)
+          columnData.push({
+            name,
+            value: numericValue * rate,
+            category: label
+          })
+        })
+      })
+
+      return {
+        rotation,
+        totalDamage,
+        dualAxesData,
+        columnData
+      }
+    })
+  }, [filteredStatisticsByYear])
+
+  return { data: filteredStatisticsByYear, computedData, loading, error }
 }
 
 function getYearFromRotationId(id: string): string {

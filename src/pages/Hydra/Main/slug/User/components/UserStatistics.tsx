@@ -1,24 +1,33 @@
 import { type FC } from 'react'
 
-import { Hydra } from '@/components'
 import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
+import { formatLocalized, convertDateRangeToWeeks, getBaseDualAxesConfig } from '@/components/Hydra/utils'
+import { Hydra } from '@/components'
 import { dataType } from '@/data'
 import { useThemeStore } from '@/store'
 import { DualAxes } from '@ant-design/plots'
-
-const { formatLocalized, convertDateRangeToWeeks } = Hydra.Utils
+import type { IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
 
 interface IUserStatisticsProps {
   statisticsData: dataType.IHydraStatisticsData[]
   checked: boolean
 }
+
 export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, checked }) => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
 
   const transformData = Hydra.Chart.Utils.transformData(statisticsData, checked)
 
-  const levelDamageData: Hydra.Chart.Types.IDualAxesInterval[] = transformData.flatMap((item) => [
+  const levelDamageData: IDualAxesInterval[] = transformData.flatMap((item: {
+    period: string
+    normalDamage: number
+    hardDamage: number
+    brutalDamage: number
+    nightmareDamage: number
+    totalDamage: number
+    labelTotalDamage: string
+  }) => [
     {
       period: item.period,
       type: dataType.EHydraLevel.normal,
@@ -41,29 +50,21 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
     }
   ])
 
-  const totalDamageData: Hydra.Chart.Types.IDualAxesLine[] = transformData.flatMap((item) => ({
+  const totalDamageData: IDualAxesLine[] = transformData.flatMap((item: {
+    period: string
+    totalDamage: number
+    labelTotalDamage: string
+  }) => ({
     period: item.period,
     damage: item.totalDamage,
     label: item.labelTotalDamage
   }))
 
   const config = {
-    theme: isDark ? 'classicDark' : 'classic',
-    xField: 'period',
-    axis: {
-      y: {
-        grid: true,
-        gridLineWidth: 2,
-        titleSpacing: 30,
-
-        labelFormatter: (e: number) => `${formatLocalized(e)}`
-      },
-      x: {
-        grid: true,
-        gridLineWidth: 1,
-        labelFormatter: (e: string) => `${convertDateRangeToWeeks(e)}`
-      }
-    },
+    ...getBaseDualAxesConfig({
+      isDark,
+      labelFormatterX: (e: string) => `${convertDateRangeToWeeks(e)}`
+    }),
     stack: true,
     labels: [
       {
@@ -72,7 +73,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
           return item.value > 100000000 ? formatLocalized(item.value) : ''
         },
         style: {
-          fill: (d: Hydra.Chart.Types.IDualAxesInterval) => hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+          fill: (d: IDualAxesInterval) => hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
           fontWeight: 700,
           dx: 0
         },
@@ -109,7 +110,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         colorField: 'type',
         tooltip: {
           items: [
-            (d: Hydra.Chart.Types.IDualAxesInterval) => {
+            (d: IDualAxesInterval) => {
               return {
                 color: hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
                 value: formatLocalized(d.value)
@@ -119,11 +120,11 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         },
         style: {
           maxWidth: 80,
-          stroke: (d: Hydra.Chart.Types.IDualAxesInterval) => {
+          stroke: (d: IDualAxesInterval) => {
             return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text ?? '#000'
           },
           strokeWidth: 1,
-          fill: (d: Hydra.Chart.Types.IDualAxesInterval) => {
+          fill: (d: IDualAxesInterval) => {
             return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.stroke ?? '#000'
           },
           shadowColor: '#fff'

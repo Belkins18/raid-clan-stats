@@ -3,52 +3,25 @@ import type { FC } from 'react'
 import { Hydra } from '@/components'
 import { getHydraLevelStyle, hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
 import { dataType } from '@/data'
+import { useHydraStatistics } from '@/hooks/useHydraStatistics'
 import { useThemeStore } from '@/store'
 import type { BarConfig } from '@ant-design/charts'
-
-const { parseNumberSafe, formatLocalized } = Hydra.Utils
+import { formatLocalized } from '@/components/Hydra/utils'
+import type { IClanResultData } from '@/components/Hydra/Chart/types'
 
 interface IRotationStatisticsProps {
-  hydraStatisticData: dataType.IHydraStatisticsData
+  rotationId: string
 }
 
-export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisticData }) => {
+export const RotationStatistics: FC<IRotationStatisticsProps> = ({ rotationId }) => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
 
-  const transformDataForChart = (inputData: dataType.IHydraStatisticsData): Hydra.Chart.Types.IClanResultData[] => {
-    if (!inputData) return []
+  const { computedData } = useHydraStatistics({ localSetup: false })
 
-    const hydraLevelsWithRate = [
-      { label: dataType.EHydraLevel.normal, rate: 1 },
-      { label: dataType.EHydraLevel.hard, rate: 2 },
-      { label: dataType.EHydraLevel.brutal, rate: 3 },
-      { label: dataType.EHydraLevel.nightmare, rate: 4 }
-    ] as const
+  const rotationData = computedData.find((d) => d.rotation.id === rotationId)
+  const data = rotationData?.columnData ?? []
 
-    const result: Hydra.Chart.Types.IClanResultData[] = []
-
-    inputData.data.forEach((item) => {
-      const name = item.name
-
-      hydraLevelsWithRate.forEach(({ label, rate }) => {
-        const rawValue = item[label as keyof typeof item] || '0'
-        let numericValue = parseNumberSafe(rawValue)
-
-        numericValue *= rate
-
-        result.push({
-          name,
-          value: numericValue,
-          category: label
-        })
-      })
-    })
-
-    return result
-  }
-
-  const data = transformDataForChart(hydraStatisticData)
   const config = {
     theme: isDark ? 'classicDark' : 'classic',
     data,
@@ -80,17 +53,17 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
     },
 
     style: {
-      stroke: (d: Hydra.Chart.Types.IClanResultData) => {
+      stroke: (d: IClanResultData) => {
         return hydraLevelsWithRate.find((item) => item.label === d.category)?.style.stroke ?? '#fff'
       },
       strokeWidth: 10,
-      fill: (d: Hydra.Chart.Types.IClanResultData) => {
+      fill: (d: IClanResultData) => {
         return hydraLevelsWithRate.find((item) => item.label === d.category)?.style.stroke ?? '#fff'
       }
     },
     tooltip: {
       items: [
-        (d: Hydra.Chart.Types.IClanResultData) => {
+        (d: IClanResultData) => {
           return {
             color: getHydraLevelStyle(d.category as dataType.THydraLevel).text,
             value: formatLocalized(d.value)
@@ -105,7 +78,7 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
         },
         position: 'inside',
         style: {
-          fill: (d: Hydra.Chart.Types.IClanResultData) => {
+          fill: (d: IClanResultData) => {
             return getHydraLevelStyle(d.category as dataType.THydraLevel).text
           },
           fontWeight: 700,
@@ -124,12 +97,6 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ hydraStatisti
             return isDark ? level.style.textDark : level.style.text
           }
         }
-        // itemLabelFill: (d: { label: string }) => {
-        //   const level = hydraLevelsWithRate.find((item) => item.label === d.label)
-        //   if (level) {
-        //     return isDark ? level.style.textDark : level.style.text
-        //   }
-        // }
       }
     },
     slider: {
