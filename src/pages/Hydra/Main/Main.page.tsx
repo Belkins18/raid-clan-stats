@@ -21,7 +21,6 @@ export const Layout = () => {
     loading,
     error
   } = useHydraStatistics({
-    localSetup: import.meta.env.MODE === 'development',
     yearCode
   })
 

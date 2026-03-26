@@ -13,9 +13,7 @@ export const StatisticPage = () => {
 
   const { user } = params
 
-  const { data: hydraStatisticsData, loading } = useHydraStatistics({
-    localSetup: import.meta.env.MODE === 'development'
-  })
+  const { data: hydraStatisticsData, loading } = useHydraStatistics({})
 
   const [hydraTableData, setHydraTableData] = useState<dataType.IHydraStatisticsData[]>()
   const [checked, setChecked] = useState(true)

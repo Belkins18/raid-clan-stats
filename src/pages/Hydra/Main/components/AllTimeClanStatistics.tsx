@@ -11,7 +11,7 @@ export const AllTimeClanStatistics: FC = () => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
 
-  const { computedData } = useHydraStatistics({ localSetup: false })
+  const { computedData } = useHydraStatistics({})
 
   const levelDamageData: IDualAxesInterval[] = []
   const totalDamageData: IDualAxesLine[] = []

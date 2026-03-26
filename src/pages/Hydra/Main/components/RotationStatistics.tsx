@@ -17,7 +17,7 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ rotationId })
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
 
-  const { computedData } = useHydraStatistics({ localSetup: false })
+  const { computedData } = useHydraStatistics({})
 
   const rotationData = computedData.find((d) => d.rotation.id === rotationId)
   const data = rotationData?.columnData ?? []

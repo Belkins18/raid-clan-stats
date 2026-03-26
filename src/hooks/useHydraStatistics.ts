@@ -1,15 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import type { IClanResultData, IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
+import { formatLocalized, parseNumberSafe } from '@/components/Hydra/utils'
+import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
+import { CACHE_TTL } from '@/constants'
 import { dataType, newRotation } from '@/data'
 import supabase from '@/lib/supabaseClient'
 import { useHydraStore } from '@/store'
-import { CACHE_TTL } from '@/constants'
-import type { IClanResultData, IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
-import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
-import { parseNumberSafe, formatLocalized } from '@/components/Hydra/utils'
 
 interface IUseHydraStatisticsProps {
-  localSetup: boolean
   yearCode?: string
 }
 
@@ -23,13 +22,14 @@ interface IComputedRotationData {
   columnData: IClanResultData[]
 }
 
-export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatisticsProps) => {
+export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
   const { statistics, lastUpdated, setStatistics } = useHydraStore()
   const [loading, setLoading] = useState(statistics.length === 0)
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    const needUpdate = !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
+    const needUpdate =
+      !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
 
     if (!needUpdate) return
 
@@ -37,7 +37,7 @@ export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatistics
       try {
         setLoading(true)
         setError(null)
-        if (localSetup) {
+        if (import.meta.env.MODE === 'development') {
           setStatistics([newRotation])
         } else {
           const { data: statisticsData, error: supabaseError } = await supabase
@@ -94,7 +94,7 @@ export const useHydraStatistics = ({ localSetup, yearCode }: IUseHydraStatistics
     }
 
     fetchData()
-  }, [lastUpdated, setStatistics, localSetup, statistics.length])
+  }, [lastUpdated, setStatistics, statistics.length])
 
   const filteredStatisticsByYear = yearCode ? statistics.filter((item) => getYearFromRotationId(item.id) === yearCode) : statistics
 
