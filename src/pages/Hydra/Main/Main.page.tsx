@@ -21,7 +21,6 @@ export const Layout = () => {
     loading,
     error
   } = useHydraStatistics({
-    localSetup: import.meta.env.MODE === 'development',
     yearCode
   })
 
@@ -72,12 +71,12 @@ export const Layout = () => {
           <>
             <br />
             <Hydra.Table.Component statisticData={hydraTableData} />
-            <RotationStatistics hydraStatisticData={hydraTableData} />
+            <RotationStatistics rotationId={hydraTableData.id} />
           </>
         )}
       </Card>
 
-      {hydraStatisticsData && <AllTimeClanStatistics statisticsData={hydraStatisticsData} />}
+      <AllTimeClanStatistics />
     </Flex>
   )
 }

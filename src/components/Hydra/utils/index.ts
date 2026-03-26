@@ -5,5 +5,6 @@ export { convertDateRangeToWeeks } from './convertDateRangeToWeeks'
 export { getWeekNumber } from './getWeekNumber'
 
 export { percentFromRounded } from './getPercent'
+export { getBaseDualAxesConfig } from './chartConfig'
 
 export * as constants from './constants'
