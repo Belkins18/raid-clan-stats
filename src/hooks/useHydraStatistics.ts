@@ -28,8 +28,7 @@ export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    const needUpdate =
-      !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
+    const needUpdate = !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
 
     if (!needUpdate) return
 

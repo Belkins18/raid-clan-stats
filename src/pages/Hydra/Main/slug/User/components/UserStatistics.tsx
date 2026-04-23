@@ -19,46 +19,46 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
 
   const transformData = Hydra.Chart.Utils.transformData(statisticsData, checked)
 
-  const levelDamageData: IDualAxesInterval[] = transformData.flatMap((item: {
-    period: string
-    normalDamage: number
-    hardDamage: number
-    brutalDamage: number
-    nightmareDamage: number
-    totalDamage: number
-    labelTotalDamage: string
-  }) => [
-    {
-      period: item.period,
-      type: dataType.EHydraLevel.normal,
-      value: item.normalDamage
-    },
-    {
-      period: item.period,
-      type: dataType.EHydraLevel.hard,
-      value: item.hardDamage
-    },
-    {
-      period: item.period,
-      type: dataType.EHydraLevel.brutal,
-      value: item.brutalDamage
-    },
-    {
-      period: item.period,
-      type: dataType.EHydraLevel.nightmare,
-      value: item.nightmareDamage
-    }
-  ])
+  const levelDamageData: IDualAxesInterval[] = transformData.flatMap(
+    (item: {
+      period: string
+      normalDamage: number
+      hardDamage: number
+      brutalDamage: number
+      nightmareDamage: number
+      totalDamage: number
+      labelTotalDamage: string
+    }) => [
+      {
+        period: item.period,
+        type: dataType.EHydraLevel.normal,
+        value: item.normalDamage
+      },
+      {
+        period: item.period,
+        type: dataType.EHydraLevel.hard,
+        value: item.hardDamage
+      },
+      {
+        period: item.period,
+        type: dataType.EHydraLevel.brutal,
+        value: item.brutalDamage
+      },
+      {
+        period: item.period,
+        type: dataType.EHydraLevel.nightmare,
+        value: item.nightmareDamage
+      }
+    ]
+  )
 
-  const totalDamageData: IDualAxesLine[] = transformData.flatMap((item: {
-    period: string
-    totalDamage: number
-    labelTotalDamage: string
-  }) => ({
-    period: item.period,
-    damage: item.totalDamage,
-    label: item.labelTotalDamage
-  }))
+  const totalDamageData: IDualAxesLine[] = transformData.flatMap(
+    (item: { period: string; totalDamage: number; labelTotalDamage: string }) => ({
+      period: item.period,
+      damage: item.totalDamage,
+      label: item.labelTotalDamage
+    })
+  )
 
   const config = {
     ...getBaseDualAxesConfig({

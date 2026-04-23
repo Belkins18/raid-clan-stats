@@ -17,7 +17,7 @@ export const getBaseDualAxesConfig = ({
   gridLineWidth = 2
 }: BaseDualAxesConfigOptions) => {
   return {
-    theme: isDark ? 'classicDark' : 'classic' as const,
+    theme: isDark ? 'classicDark' : ('classic' as const),
     xField,
     height,
     axis: {
