@@ -35,9 +35,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - No dedicated test framework detected; consider adding Jest/Vitest for unit tests and Cypress/Playwright for end-to-end tests.
 
 ## Gotchas & Tips
+- On Windows PowerShell, `npm run ...` may fail because `npm.ps1` is blocked by the execution policy. Use `npm.cmd run ...` instead (for example, `npm.cmd run build`).
 - Changing environment variables requires restarting the dev server.
 - After running `npm run db:migrate:hydra`, verify Supabase data consistency locally.
 - If ESLint reports type-only issues, ensure `tsconfig.json` includes `"noEmit": true` and `"isolatedModules": true`.
+- Hydra `DualAxes` charts use responsive slider windows via `useElementWidth`, `getResponsiveVisibleItemsCount`, and `getLastItemsSliderValues`; avoid hard-coding a fixed "last 20" window.
+- The current Hydra chart density is intentional: `Math.min(Math.max(Math.floor(containerWidth / 100), 3), 20)` means about one visible point per 100px, minimum 3 on mobile, maximum 20 on desktop.
+- AntV charts can desync line/interval layers on resize or theme changes; keep explicit child `xField: 'period'` and remount keys tied to data length, visible item count, width, and theme.
+- Footer audio supports mixed local MP3 and YouTube iframe tracks. YouTube live/video entries cannot be played through `<audio>`; add them as `type: 'youtube'` items in `src/layouts/components/Footer/playlist.ts`.
+- Keep document-level theme backgrounds in `src/index.css` for `html`, `body`, and `#root`; otherwise mobile Safari may show white gutters around the app during horizontal overscroll.
 
 ## Suggested Extensions (optional)
 - Add a `.claude/rules/` directory for more granular rule files (e.g., `code-style.md`, `testing.md`).

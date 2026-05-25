@@ -1,13 +1,16 @@
-import type { FC } from 'react'
+import { type FC, useEffect, useState } from 'react'
+
+import { Skeleton } from 'antd'
 
 import { Hydra } from '@/components'
+import type { IClanResultData } from '@/components/Hydra/Chart/types'
+import { formatLocalized } from '@/components/Hydra/utils'
 import { getHydraLevelStyle, hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
 import { dataType } from '@/data'
+import { useElementWidth } from '@/hooks'
 import { useHydraStatistics } from '@/hooks/useHydraStatistics'
 import { useThemeStore } from '@/store'
 import type { BarConfig } from '@ant-design/charts'
-import { formatLocalized } from '@/components/Hydra/utils'
-import type { IClanResultData } from '@/components/Hydra/Chart/types'
 
 interface IRotationStatisticsProps {
   rotationId: string
@@ -16,11 +19,23 @@ interface IRotationStatisticsProps {
 export const RotationStatistics: FC<IRotationStatisticsProps> = ({ rotationId }) => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
+  const [isChartReady, setIsChartReady] = useState(false)
+  const [chartWrapperRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
-  const { computedData } = useHydraStatistics({})
+  const { computedData, loading } = useHydraStatistics({})
 
   const rotationData = computedData.find((d) => d.rotation.id === rotationId)
   const data = rotationData?.columnData ?? []
+
+  useEffect(() => {
+    setIsChartReady(false)
+
+    const frameId = window.requestAnimationFrame(() => {
+      setIsChartReady(true)
+    })
+
+    return () => window.cancelAnimationFrame(frameId)
+  }, [rotationId, data.length, chartWidth, mode])
 
   const config = {
     theme: isDark ? 'classicDark' : 'classic',
@@ -100,14 +115,17 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ rotationId })
       }
     },
     slider: {
-      x: {},
-      y: {
-        labelFormatter: (d: number) => {
-          return formatLocalized(d)
-        }
-      }
+      x: {}
     }
   } as BarConfig
 
-  return <Hydra.Chart.BarChart config={config} />
+  return (
+    <div ref={chartWrapperRef}>
+      {loading || !isChartReady ? (
+        <Skeleton.Node active style={{ width: '100%', height: 700 }} />
+      ) : (
+        <Hydra.Chart.BarChart key={`${rotationId}-${data.length}-${chartWidth}-${mode}-${isChartReady}`} config={config} />
+      )}
+    </div>
+  )
 }
