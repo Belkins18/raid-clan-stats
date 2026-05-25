@@ -3,232 +3,36 @@ import type { IHydraStatisticsData } from './types'
 export * as dataType from './types'
 
 export const newRotation = {
-  id: '15-04-2026_22-04-2026',
+  id: '13-05-2026_20-05-2026',
   data: [
-    {
-      name: 'Dreadnought UA',
-      Normal: 0,
-      Hard: 269464224,
-      Brutal: 350437940,
-      Nightmare: 455148184,
-      keyUsed: 3
-    },
-    {
-      name: 'NikR0man',
-      Normal: 0,
-      Hard: 233684902,
-      Brutal: 245432682,
-      Nightmare: 174063706,
-      keyUsed: 3
-    },
-    {
-      name: '(BiБр) Крегул',
-      Normal: 0,
-      Hard: 86294505,
-      Brutal: 132575017,
-      Nightmare: 212524358,
-      keyUsed: 3
-    },
-    {
-      name: 'Oleg77713',
-      Normal: 0,
-      Hard: 55736919,
-      Brutal: 182965952,
-      Nightmare: 137540400,
-      keyUsed: 3
-    },
-    {
-      name: '(BiБр) Бітанга',
-      Normal: 0,
-      Hard: 119531541,
-      Brutal: 125639447,
-      Nightmare: 111014700,
-      keyUsed: 3
-    },
-    {
-      name: 'BIБP_Pashatko1',
-      Normal: 0,
-      Hard: 331013900,
-      Brutal: 298319483,
-      Nightmare: 238457580,
-      keyUsed: 3
-    },
-    {
-      name: 'Radoran',
-      Normal: 0,
-      Hard: 201410240,
-      Brutal: 360557852,
-      Nightmare: 12242130717,
-      keyUsed: 3
-    },
-    {
-      name: 'BIБP-Eriddicus',
-      Normal: 0,
-      Hard: 132847061,
-      Brutal: 242949682,
-      Nightmare: 56486785,
-      keyUsed: 3
-    },
-    {
-      name: '[BiБр] mykola',
-      Normal: 0,
-      Hard: 430713655,
-      Brutal: 382776272,
-      Nightmare: 363013947,
-      keyUsed: 3
-    },
-    {
-      name: '(BiБр) Кіясік',
-      Normal: 0,
-      Hard: 127530117,
-      Brutal: 61803333,
-      Nightmare: 214619372,
-      keyUsed: 3
-    },
-    {
-      name: 'МирославUA',
-      Normal: 0,
-      Hard: 436609310,
-      Brutal: 699937447,
-      Nightmare: 821325197,
-      keyUsed: 3
-    },
-    {
-      name: 'BEDbMAK_777',
-      Normal: 0,
-      Hard: 0,
-      Brutal: 560973650,
-      Nightmare: 452557066,
-      keyUsed: 2
-    },
-    {
-      name: 'Акробат22',
-      Normal: 0,
-      Hard: 0,
-      Brutal: 0,
-      Nightmare: 0,
-      keyUsed: 0
-    },
-    {
-      name: '[BiБр] Belkins',
-      Normal: 0,
-      Hard: 549198371,
-      Brutal: 392014156,
-      Nightmare: 685148575,
-      keyUsed: 3
-    },
-    {
-      name: 'Crystal Castle',
-      Normal: 0,
-      Hard: 408189521,
-      Brutal: 432984143,
-      Nightmare: 524092504,
-      keyUsed: 3
-    },
-    {
-      name: 'Ksondr',
-      Normal: 0,
-      Hard: 29559279,
-      Brutal: 95167127,
-      Nightmare: 273480568,
-      keyUsed: 3
-    },
-    {
-      name: 'VLAD_XIII',
-      Normal: 0,
-      Hard: 0,
-      Brutal: 20598361,
-      Nightmare: 116758947,
-      keyUsed: 2
-    },
-    {
-      name: 'AZAZEL',
-      Normal: 0,
-      Hard: 261193607,
-      Brutal: 385127283,
-      Nightmare: 224338719,
-      keyUsed: 3
-    },
-    {
-      name: 'Ухххх!!!!',
-      Normal: 0,
-      Hard: 113841632,
-      Brutal: 144960398,
-      Nightmare: 331580761,
-      keyUsed: 3
-    },
-    {
-      name: 'Glear20',
-      Normal: 0,
-      Hard: 105595076,
-      Brutal: 142475495,
-      Nightmare: 247922814,
-      keyUsed: 3
-    },
-    {
-      name: 'Xopcuk',
-      Normal: 0,
-      Hard: 0,
-      Brutal: 0,
-      Nightmare: 0,
-      keyUsed: 0
-    },
-    {
-      name: 'Berserk [UA]',
-      Normal: 40768012,
-      Hard: 28697948,
-      Brutal: 22161040,
-      Nightmare: 0,
-      keyUsed: 3
-    },
-    {
-      name: 'bond7728',
-      Normal: 0,
-      Hard: 68800062,
-      Brutal: 302893037,
-      Nightmare: 416159892,
-      keyUsed: 3
-    },
-    {
-      name: 'Це_я',
-      Normal: 0,
-      Hard: 75836402,
-      Brutal: 221507456,
-      Nightmare: 125487443,
-      keyUsed: 3
-    },
-    {
-      name: 'Nigthfear',
-      Normal: 213992812,
-      Hard: 101567783,
-      Brutal: 60398487,
-      Nightmare: 0,
-      keyUsed: 3
-    },
-    {
-      name: 'Kola22',
-      Normal: 0,
-      Hard: 42730374,
-      Brutal: 24340994,
-      Nightmare: 181443087,
-      keyUsed: 3
-    },
-    {
-      name: '17SCARPIONN',
-      Normal: 89606915,
-      Hard: 139816161,
-      Brutal: 171549242,
-      Nightmare: 0,
-      keyUsed: 3
-    },
-    {
-      name: '[АПОФІС]',
-      Normal: 0,
-      Hard: 29415311,
-      Brutal: 52531169,
-      Nightmare: 43878452,
-      keyUsed: 3
-    }
+    { name: 'Dreadnought UA', Normal: 0, Hard: 267553993, Brutal: 576160514, Nightmare: 530276402, keyUsed: 3 },
+    { name: 'NikR0man', Normal: 0, Hard: 312176117, Brutal: 285598301, Nightmare: 1118350970, keyUsed: 3 },
+    { name: '(BiБр) Крегул', Normal: 0, Hard: 96600628, Brutal: 2589016, Nightmare: 155905308, keyUsed: 3 },
+    { name: 'Oleg77713', Normal: 0, Hard: 53698389, Brutal: 126784556, Nightmare: 211248166, keyUsed: 3 },
+    { name: '(BiБр) Бітанга', Normal: 0, Hard: 134243824, Brutal: 86143817, Nightmare: 109759964, keyUsed: 3 },
+    { name: 'BIБP_Pashatko1', Normal: 0, Hard: 241865937, Brutal: 175376263, Nightmare: 262198865, keyUsed: 3 },
+    { name: 'Radoran', Normal: 0, Hard: 191929837, Brutal: 441456007, Nightmare: 9807817827, keyUsed: 3 },
+    { name: 'BIБP-Eriddicus', Normal: 0, Hard: 121660757, Brutal: 251824986, Nightmare: 29522027, keyUsed: 3 },
+    { name: '[BiБр] mykola', Normal: 0, Hard: 519311181, Brutal: 460860628, Nightmare: 476173914, keyUsed: 3 },
+    { name: '(BiБр) Кіясік', Normal: 0, Hard: 120384271, Brutal: 43153544, Nightmare: 312697318, keyUsed: 3 },
+    { name: 'МирославUA', Normal: 0, Hard: 426056712, Brutal: 572659051, Nightmare: 1177455707, keyUsed: 3 },
+    { name: 'BEDbMAK_777', Normal: 0, Hard: 288533322, Brutal: 590531508, Nightmare: 459776620, keyUsed: 3 },
+    { name: 'Акробат22', Normal: 0, Hard: 0, Brutal: 0, Nightmare: 0, keyUsed: 0 },
+    { name: '[BiБр] Belkins', Normal: 0, Hard: 1064676585, Brutal: 371014077, Nightmare: 662631781, keyUsed: 3 },
+    { name: 'Crystal Castle', Normal: 0, Hard: 428898011, Brutal: 389364516, Nightmare: 489464065, keyUsed: 3 },
+    { name: 'Ksondr', Normal: 0, Hard: 33506130, Brutal: 160200341, Nightmare: 388792000, keyUsed: 3 },
+    { name: 'VLAD_XIII', Normal: 27104466, Hard: 51473797, Brutal: 0, Nightmare: 122859575, keyUsed: 3 },
+    { name: 'AZAZEL', Normal: 0, Hard: 258918631, Brutal: 465598509, Nightmare: 208196067, keyUsed: 3 },
+    { name: 'Ухххх!!!!', Normal: 0, Hard: 257053656, Brutal: 179071294, Nightmare: 548001564, keyUsed: 3 },
+    { name: 'Glear20', Normal: 0, Hard: 89920052, Brutal: 195079550, Nightmare: 330979541, keyUsed: 3 },
+    { name: 'Xopcuk', Normal: 0, Hard: 0, Brutal: 0, Nightmare: 0, keyUsed: 0 },
+    { name: 'Berserk [UA]', Normal: 23356501, Hard: 35417434, Brutal: 6891242, Nightmare: 0, keyUsed: 3 },
+    { name: 'bond7728', Normal: 0, Hard: 82361104, Brutal: 173762813, Nightmare: 441816758, keyUsed: 3 },
+    { name: 'Це_я', Normal: 0, Hard: 0, Brutal: 219345666, Nightmare: 128911871, keyUsed: 2 },
+    { name: 'Nigthfear', Normal: 0, Hard: 0, Brutal: 0, Nightmare: 0, keyUsed: 0 },
+    { name: 'Kola22', Normal: 0, Hard: 88218625, Brutal: 41037391, Nightmare: 75372315, keyUsed: 3 },
+    { name: '17SCARPIONN', Normal: 0, Hard: 149906882, Brutal: 126782853, Nightmare: 193747591, keyUsed: 3 },
+    { name: '[АПОФІС]', Normal: 0, Hard: 49961510, Brutal: 38241123, Nightmare: 80984673, keyUsed: 3 }
   ]
 }
 
@@ -237,6 +41,5 @@ export const hydraStatisticsData: IHydraStatisticsData[] = [newRotation].sort((a
     const [day, month, year] = id.split('_')[0].split('-').map(Number)
     return new Date(year, month - 1, day).getTime()
   }
-
   return parseDate(a.id) - parseDate(b.id)
 })
