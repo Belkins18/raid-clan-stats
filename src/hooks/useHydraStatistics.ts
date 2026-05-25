@@ -36,7 +36,7 @@ export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
       try {
         setLoading(true)
         setError(null)
-        if (import.meta.env.MODE === 'development') {
+        if (import.meta.env.DEV) {
           setStatistics([newRotation])
         } else {
           const { data: statisticsData, error: supabaseError } = await supabase
