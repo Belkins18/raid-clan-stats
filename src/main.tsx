@@ -15,7 +15,7 @@ const ThemedApp = () => {
   const htmlEl = document.querySelector('html')
 
   useEffect(() => {
-    if (import.meta.env.MODE === 'development') {
+    if (import.meta.env.DEV) {
       localStorage.clear()
     }
   }, [])

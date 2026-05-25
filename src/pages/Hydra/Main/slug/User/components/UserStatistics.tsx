@@ -1,9 +1,17 @@
-import { type FC } from 'react'
+import { type FC, useEffect, useState } from 'react'
 
+import { Skeleton } from 'antd'
 import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
-import { formatLocalized, convertDateRangeToWeeks, getBaseDualAxesConfig } from '@/components/Hydra/utils'
+import {
+  formatLocalized,
+  convertDateRangeToWeeks,
+  getBaseDualAxesConfig,
+  getLastItemsSliderValues,
+  getResponsiveVisibleItemsCount
+} from '@/components/Hydra/utils'
 import { Hydra } from '@/components'
 import { dataType } from '@/data'
+import { useElementWidth } from '@/hooks'
 import { useThemeStore } from '@/store'
 import { DualAxes } from '@ant-design/plots'
 import type { IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
@@ -16,49 +24,62 @@ interface IUserStatisticsProps {
 export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, checked }) => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
+  const [isSliderReady, setIsSliderReady] = useState(false)
+  const [chartWrapperRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
   const transformData = Hydra.Chart.Utils.transformData(statisticsData, checked)
+  const visibleItemsCount = getResponsiveVisibleItemsCount(chartWidth)
 
-  const levelDamageData: IDualAxesInterval[] = transformData.flatMap((item: {
-    period: string
-    normalDamage: number
-    hardDamage: number
-    brutalDamage: number
-    nightmareDamage: number
-    totalDamage: number
-    labelTotalDamage: string
-  }) => [
-    {
-      period: item.period,
-      type: dataType.EHydraLevel.normal,
-      value: item.normalDamage
-    },
-    {
-      period: item.period,
-      type: dataType.EHydraLevel.hard,
-      value: item.hardDamage
-    },
-    {
-      period: item.period,
-      type: dataType.EHydraLevel.brutal,
-      value: item.brutalDamage
-    },
-    {
-      period: item.period,
-      type: dataType.EHydraLevel.nightmare,
-      value: item.nightmareDamage
-    }
-  ])
+  const levelDamageData: IDualAxesInterval[] = transformData.flatMap(
+    (item: {
+      period: string
+      normalDamage: number
+      hardDamage: number
+      brutalDamage: number
+      nightmareDamage: number
+      totalDamage: number
+      labelTotalDamage: string
+    }) => [
+      {
+        period: item.period,
+        type: dataType.EHydraLevel.normal,
+        value: item.normalDamage
+      },
+      {
+        period: item.period,
+        type: dataType.EHydraLevel.hard,
+        value: item.hardDamage
+      },
+      {
+        period: item.period,
+        type: dataType.EHydraLevel.brutal,
+        value: item.brutalDamage
+      },
+      {
+        period: item.period,
+        type: dataType.EHydraLevel.nightmare,
+        value: item.nightmareDamage
+      }
+    ]
+  )
 
-  const totalDamageData: IDualAxesLine[] = transformData.flatMap((item: {
-    period: string
-    totalDamage: number
-    labelTotalDamage: string
-  }) => ({
-    period: item.period,
-    damage: item.totalDamage,
-    label: item.labelTotalDamage
-  }))
+  const totalDamageData: IDualAxesLine[] = transformData.flatMap(
+    (item: { period: string; totalDamage: number; labelTotalDamage: string }) => ({
+      period: item.period,
+      damage: item.totalDamage,
+      label: item.labelTotalDamage
+    })
+  )
+
+  useEffect(() => {
+    setIsSliderReady(false)
+
+    const frameId = window.requestAnimationFrame(() => {
+      setIsSliderReady(true)
+    })
+
+    return () => window.cancelAnimationFrame(frameId)
+  }, [totalDamageData.length, checked, visibleItemsCount, mode])
 
   const config = {
     ...getBaseDualAxesConfig({
@@ -99,6 +120,9 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
     },
     slider: {
       x: {
+        ...(isSliderReady && {
+          values: getLastItemsSliderValues(totalDamageData.length, visibleItemsCount)
+        }),
         labelFormatter: (d: string) => convertDateRangeToWeeks(d)
       }
     },
@@ -106,6 +130,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
       {
         data: levelDamageData,
         type: 'interval',
+        xField: 'period',
         yField: 'value',
         colorField: 'type',
         tooltip: {
@@ -133,6 +158,7 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
       {
         data: totalDamageData,
         type: 'line',
+        xField: 'period',
         yField: 'damage',
         colorField: () => 'Total Damage',
         style: { lineWidth: 6 },
@@ -148,5 +174,13 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
     ]
   }
 
-  return <DualAxes {...config} />
+  return (
+    <div ref={chartWrapperRef}>
+      {!isSliderReady ? (
+        <Skeleton.Node active style={{ width: '100%', height: 600 }} />
+      ) : (
+        <DualAxes key={`${totalDamageData.length}-${checked}-${visibleItemsCount}-${mode}-${isSliderReady}`} {...config} />
+      )}
+    </div>
+  )
 }

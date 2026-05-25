@@ -1,17 +1,28 @@
-import { type FC } from 'react'
+import { type FC, useEffect, useState } from 'react'
 
+import { Skeleton } from 'antd'
 import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
 import { useHydraStatistics } from '@/hooks/useHydraStatistics'
+import { useElementWidth } from '@/hooks'
 import { useThemeStore } from '@/store'
 import { DualAxes } from '@ant-design/plots'
-import { formatLocalized, convertDateRangeToWeeks, getBaseDualAxesConfig } from '@/components/Hydra/utils'
+import {
+  formatLocalized,
+  convertDateRangeToWeeks,
+  getBaseDualAxesConfig,
+  getLastItemsSliderValues,
+  getResponsiveVisibleItemsCount
+} from '@/components/Hydra/utils'
 import type { IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
 
 export const AllTimeClanStatistics: FC = () => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
+  const [isSliderReady, setIsSliderReady] = useState(false)
+  const [chartWrapperRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
-  const { computedData } = useHydraStatistics({})
+  const { computedData, loading } = useHydraStatistics({})
+  const visibleItemsCount = getResponsiveVisibleItemsCount(chartWidth)
 
   const levelDamageData: IDualAxesInterval[] = []
   const totalDamageData: IDualAxesLine[] = []
@@ -20,6 +31,16 @@ export const AllTimeClanStatistics: FC = () => {
     levelDamageData.push(...dualAxesData.levelDamage)
     totalDamageData.push(dualAxesData.totalDamage)
   })
+
+  useEffect(() => {
+    setIsSliderReady(false)
+
+    const frameId = window.requestAnimationFrame(() => {
+      setIsSliderReady(true)
+    })
+
+    return () => window.cancelAnimationFrame(frameId)
+  }, [totalDamageData.length, visibleItemsCount, mode])
 
   const config = {
     ...getBaseDualAxesConfig({
@@ -59,6 +80,9 @@ export const AllTimeClanStatistics: FC = () => {
     },
     slider: {
       x: {
+        ...(isSliderReady && {
+          values: getLastItemsSliderValues(totalDamageData.length, visibleItemsCount)
+        }),
         labelFormatter: (d: string) => convertDateRangeToWeeks(d)
       }
     },
@@ -66,6 +90,7 @@ export const AllTimeClanStatistics: FC = () => {
       {
         data: levelDamageData,
         type: 'interval',
+        xField: 'period',
         yField: 'value',
         colorField: (d: IDualAxesInterval) => {
           return hydraLevelsWithRate.find((item) => item.label === d.type)?.label
@@ -95,6 +120,7 @@ export const AllTimeClanStatistics: FC = () => {
       {
         data: totalDamageData,
         type: 'line',
+        xField: 'period',
         yField: 'damage',
         colorField: () => 'Total Damage',
         style: { lineWidth: 6 },
@@ -110,5 +136,13 @@ export const AllTimeClanStatistics: FC = () => {
     ]
   }
 
-  return <DualAxes {...config} />
+  return (
+    <div ref={chartWrapperRef}>
+      {loading || !isSliderReady ? (
+        <Skeleton.Node active style={{ width: '100%', height: 600 }} />
+      ) : (
+        <DualAxes key={`${totalDamageData.length}-${visibleItemsCount}-${mode}-${isSliderReady}`} {...config} />
+      )}
+    </div>
+  )
 }

@@ -9,6 +9,22 @@ interface BaseDualAxesConfigOptions {
   gridLineWidth?: number
 }
 
+export const getLastItemsSliderValues = (itemsCount: number, visibleItemsCount: number): [number, number] => {
+  if (itemsCount <= visibleItemsCount) {
+    return [0, 1]
+  }
+
+  return [(itemsCount - visibleItemsCount) / itemsCount, 1]
+}
+
+export const getResponsiveVisibleItemsCount = (containerWidth: number): number => {
+  if (!containerWidth) {
+    return 20
+  }
+
+  return Math.min(Math.max(Math.floor(containerWidth / 100), 3), 20)
+}
+
 export const getBaseDualAxesConfig = ({
   isDark,
   height = 600,
@@ -17,7 +33,7 @@ export const getBaseDualAxesConfig = ({
   gridLineWidth = 2
 }: BaseDualAxesConfigOptions) => {
   return {
-    theme: isDark ? 'classicDark' : 'classic' as const,
+    theme: isDark ? 'classicDark' : ('classic' as const),
     xField,
     height,
     axis: {

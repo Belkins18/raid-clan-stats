@@ -28,8 +28,7 @@ export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    const needUpdate =
-      !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
+    const needUpdate = !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
 
     if (!needUpdate) return
 
@@ -37,7 +36,7 @@ export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
       try {
         setLoading(true)
         setError(null)
-        if (import.meta.env.MODE === 'development') {
+        if (import.meta.env.DEV) {
           setStatistics([newRotation])
         } else {
           const { data: statisticsData, error: supabaseError } = await supabase

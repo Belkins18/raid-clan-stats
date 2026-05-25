@@ -135,10 +135,18 @@ body {
     color 0.3s ease;
 }
 
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
 #root {
   display: flex;
   width: 100%;
   min-height: 100vh;
+  background: inherit;
 }
 
 /* Global theme transitions */
@@ -151,17 +159,14 @@ body {
     border-color 0.3s ease;
 }
 
-/* [data-prefers-color='light'] body {
-	color: rgba(0, 0, 0, 0.88);
-
-	background: #ffffff;
-	-webkit-transition: background-color 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-	transition: background-color 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+[data-prefers-color='light'],
+[data-prefers-color='light'] body {
+  background: #ffffff;
 }
+
+[data-prefers-color='dark'],
 [data-prefers-color='dark'] body {
-	color: rgba(255, 255, 255, 0.85);
-	background: rgb(20, 20, 20);
-	transition: background-color 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-} */
+  background: #000000;
+}
 
 /* @import 'node_modules/use-antd-resizable-header/dist/style.css'; */

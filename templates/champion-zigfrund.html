@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Зигфрунд Нефилим</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #0a0e17;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Arial, sans-serif;
+      }
+
+      /* ===== CARD WRAPPER ===== */
+      .champ-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 120px;
+      }
+
+      /* ===== PORTRAIT CONTAINER ===== */
+      .portrait-wrap {
+        position: relative;
+        width: 100px;
+        height: 130px;
+        overflow: hidden;
+        /* Outer subtle shadow like in-game */
+        filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+      }
+
+      /* Portrait image */
+      .portrait-wrap .portrait {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Mythical frame overlay */
+      .portrait-wrap .frame {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      /* Faction icon (top-right) */
+      .portrait-wrap .faction-icon {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        z-index: 3;
+        width: 22px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .portrait-wrap .faction-icon svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Affinity icon (bottom-left) */
+      .portrait-wrap .affinity-icon {
+        position: absolute;
+        bottom: 10px;
+        left: 8px;
+        z-index: 3;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .portrait-wrap .affinity-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* ===== TEXT BELOW ===== */
+      .champ-card .roles {
+        margin-top: 6px;
+        font-size: 11px;
+        color: #c8b878;
+        text-align: center;
+        line-height: 1.3;
+        font-weight: 500;
+      }
+
+      .champ-card .name {
+        font-size: 13px;
+        color: #e8e0d0;
+        text-align: center;
+        font-weight: 600;
+        margin-top: 2px;
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="champ-card">
+      <!-- Portrait + Frame + Icons -->
+      <div class="portrait-wrap">
+        <!-- Champion portrait -->
+        <img class="portrait" src="file:///C:/Program Files/RSL_Helper_V6/cPictures/8210.png" alt="" />
+
+        <!-- Mythical frame (red border overlay) -->
+        <img class="frame" src="file:///C:/Program Files/RSL_Helper_V6/cPictures/Mythical.png" alt="" />
+
+        <!-- Faction: Sacred Order (cross in shield) -->
+        <div class="faction-icon">
+          <svg viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg">
+            <!-- Shield shape -->
+            <path d="M12 1 L22 5 L22 18 Q22 26 12 29 Q2 26 2 18 L2 5 Z" fill="#2a2a30" stroke="#a0a0a8" stroke-width="1.2" />
+            <!-- Cross -->
+            <rect x="10" y="6" width="4" height="16" rx="0.5" fill="#d8d0c0" />
+            <rect x="6" y="10" width="12" height="4" rx="0.5" fill="#d8d0c0" />
+          </svg>
+        </div>
+
+        <!-- Affinity: Magic -->
+        <div class="affinity-icon">
+          <img src="file:///C:/Program Files/RSL_Helper_V6/cPictures/Magic_36.png" alt="" />
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="roles">Атака /<br />Поддержка</div>
+      <div class="name">Зигфрунд</div>
+    </div>
+  </body>
+</html>
