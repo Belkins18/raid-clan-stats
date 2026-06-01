@@ -17,11 +17,14 @@ export const useTableData = (insideData: dataType.IHydraUserStatistic[]) => {
     setData(
       [...insideData]
         .map((item) => {
-          const totalDamage = hydraLevelsWithRate.reduce((sum, { label, rate }) => {
-            const damageByLevel = parseNumberSafe(item[label]) * rate
-            sum += damageByLevel
-            return sum
-          }, 0)
+          const totalDamage = hydraLevelsWithRate.reduce(
+            (sum, { label, rate }) => {
+              const damageByLevel = parseNumberSafe(item[label]) * rate
+              sum += damageByLevel
+              return sum
+            },
+            0
+          )
 
           return { id: v4(), ...item, totalDamage }
         })

@@ -28,10 +28,21 @@ export const Header: FC<IHeaderComponentProps> = ({ pageNavigation }) => {
   }
 
   return (
-    <Layout.Header style={{ ...style.header, background: token.colorBgContainer }}>
+    <Layout.Header
+      style={{ ...style.header, background: token.colorBgContainer }}
+    >
       <LayoutComponents.Brand text="[BiБр]" />
-      <Menu mode="horizontal" selectedKeys={[currentPath]} onClick={menuHandler} items={pageNavigation ?? []} style={style.headerMenu} />
-      <Button onClick={toggle} icon={mode === 'dark' ? <SunFilled /> : <SunOutlined />} />
+      <Menu
+        mode="horizontal"
+        selectedKeys={[currentPath]}
+        onClick={menuHandler}
+        items={pageNavigation ?? []}
+        style={style.headerMenu}
+      />
+      <Button
+        onClick={toggle}
+        icon={mode === 'dark' ? <SunFilled /> : <SunOutlined />}
+      />
     </Layout.Header>
   )
 }

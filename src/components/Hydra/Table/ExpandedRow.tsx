@@ -31,7 +31,11 @@ const RadarChart = ({ record }: Pick<IExpandedRow, 'record'>) => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
 
-  const transformData = (record: DataType, type: 'Pure Damage' | 'With Koef', withRate?: boolean) => {
+  const transformData = (
+    record: DataType,
+    type: 'Pure Damage' | 'With Koef',
+    withRate?: boolean
+  ) => {
     const levels: THydraLevel[] = Object.values(EHydraLevel)
     const hydraLevelsWithRate = {
       [EHydraLevel.normal]: 1,
@@ -41,7 +45,9 @@ const RadarChart = ({ record }: Pick<IExpandedRow, 'record'>) => {
     }
 
     return levels.map((level) => {
-      const score = withRate ? parseNumberSafe(record[level]) * hydraLevelsWithRate[level] : (record[level] ?? 0)
+      const score = withRate
+        ? parseNumberSafe(record[level]) * hydraLevelsWithRate[level]
+        : (record[level] ?? 0)
       return {
         item: level,
         type,
@@ -80,7 +86,11 @@ const RadarChart = ({ record }: Pick<IExpandedRow, 'record'>) => {
 
     tooltip: {
       items: [
-        (d: { item: THydraLevel; type: 'Pure Damage' | 'With Koef'; score: number }) => {
+        (d: {
+          item: THydraLevel
+          type: 'Pure Damage' | 'With Koef'
+          score: number
+        }) => {
           return {
             value: formatLocalized(d.score)
           }
@@ -100,7 +110,8 @@ const RadarChart = ({ record }: Pick<IExpandedRow, 'record'>) => {
 }
 
 const LiquidChart = ({ record, clanRotationDamage }: IExpandedRow) => {
-  const percent = percentFromRounded(record.totalDamage, clanRotationDamage) / 100
+  const percent =
+    percentFromRounded(record.totalDamage, clanRotationDamage) / 100
   const config = {
     percent,
     style: {

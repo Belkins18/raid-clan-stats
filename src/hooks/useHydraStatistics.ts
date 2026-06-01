@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import type { IClanResultData, IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
+import type {
+  IClanResultData,
+  IDualAxesInterval,
+  IDualAxesLine
+} from '@/components/Hydra/Chart/types'
 import { formatLocalized, parseNumberSafe } from '@/components/Hydra/utils'
 import { hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
 import { CACHE_TTL } from '@/constants'
@@ -28,7 +32,10 @@ export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    const needUpdate = !lastUpdated || Date.now() - lastUpdated > CACHE_TTL || statistics.length === 0
+    const needUpdate =
+      !lastUpdated ||
+      Date.now() - lastUpdated > CACHE_TTL ||
+      statistics.length === 0
 
     if (!needUpdate) return
 
@@ -77,7 +84,10 @@ export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
               }))
               .sort((a, b) => {
                 const parseDate = (id: string): number => {
-                  const [day, month, year] = id.split('_')[0].split('-').map(Number)
+                  const [day, month, year] = id
+                    .split('_')[0]
+                    .split('-')
+                    .map(Number)
                   return new Date(year, month - 1, day).getTime()
                 }
                 return parseDate(a.id) - parseDate(b.id)
@@ -95,7 +105,9 @@ export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
     fetchData()
   }, [lastUpdated, setStatistics, statistics.length])
 
-  const filteredStatisticsByYear = yearCode ? statistics.filter((item) => getYearFromRotationId(item.id) === yearCode) : statistics
+  const filteredStatisticsByYear = yearCode
+    ? statistics.filter((item) => getYearFromRotationId(item.id) === yearCode)
+    : statistics
 
   const computedData = useMemo<IComputedRotationData[]>(() => {
     return filteredStatisticsByYear.map((rotation) => {
@@ -127,16 +139,37 @@ export const useHydraStatistics = ({ yearCode }: IUseHydraStatisticsProps) => {
         })
       })
 
-      const totalDamage = normalDamage + hardDamage + brutalDamage + nightmareDamage
+      const totalDamage =
+        normalDamage + hardDamage + brutalDamage + nightmareDamage
 
       const dualAxesData = {
         levelDamage: [
-          { period: rotation.id, type: dataType.EHydraLevel.normal, value: normalDamage },
-          { period: rotation.id, type: dataType.EHydraLevel.hard, value: hardDamage },
-          { period: rotation.id, type: dataType.EHydraLevel.brutal, value: brutalDamage },
-          { period: rotation.id, type: dataType.EHydraLevel.nightmare, value: nightmareDamage }
+          {
+            period: rotation.id,
+            type: dataType.EHydraLevel.normal,
+            value: normalDamage
+          },
+          {
+            period: rotation.id,
+            type: dataType.EHydraLevel.hard,
+            value: hardDamage
+          },
+          {
+            period: rotation.id,
+            type: dataType.EHydraLevel.brutal,
+            value: brutalDamage
+          },
+          {
+            period: rotation.id,
+            type: dataType.EHydraLevel.nightmare,
+            value: nightmareDamage
+          }
         ],
-        totalDamage: { period: rotation.id, damage: totalDamage, label: formatLocalized(totalDamage) }
+        totalDamage: {
+          period: rotation.id,
+          damage: totalDamage,
+          label: formatLocalized(totalDamage)
+        }
       }
 
       const columnData: IClanResultData[] = []

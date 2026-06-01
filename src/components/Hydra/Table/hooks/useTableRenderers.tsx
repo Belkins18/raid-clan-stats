@@ -16,7 +16,12 @@ type DataType = Hydra.Table.Types.DataType
  * Hook for generating render functions for columns Ant Design Table.
  * @param getFieldValue
  */
-export const useTableRenderers = (getFieldValue: <K extends keyof DataType>(rowData: DataType, keys: K[]) => DataType[K] | undefined) => {
+export const useTableRenderers = (
+  getFieldValue: <K extends keyof DataType>(
+    rowData: DataType,
+    keys: K[]
+  ) => DataType[K] | undefined
+) => {
   const { formatLocalized, parseNumberSafe } = Hydra.Utils
 
   const renderName = useCallback(
@@ -31,7 +36,11 @@ export const useTableRenderers = (getFieldValue: <K extends keyof DataType>(rowD
     (_: any, record: DataType) => {
       const rawValue = getFieldValue(record, [EHydraLevel.normal])
       const damage = parseNumberSafe(rawValue)
-      return damage > 0 ? <Tag color="green">{formatLocalized(damage)}</Tag> : '-'
+      return damage > 0 ? (
+        <Tag color="green">{formatLocalized(damage)}</Tag>
+      ) : (
+        '-'
+      )
     },
     [getFieldValue]
   )
@@ -40,7 +49,11 @@ export const useTableRenderers = (getFieldValue: <K extends keyof DataType>(rowD
     (_: any, record: DataType) => {
       const rawValue = getFieldValue(record, [EHydraLevel.hard])
       const damage = parseNumberSafe(rawValue)
-      return damage > 0 ? <Tag color="yellow">{formatLocalized(damage)}</Tag> : '-'
+      return damage > 0 ? (
+        <Tag color="yellow">{formatLocalized(damage)}</Tag>
+      ) : (
+        '-'
+      )
     },
     [getFieldValue]
   )
@@ -49,7 +62,11 @@ export const useTableRenderers = (getFieldValue: <K extends keyof DataType>(rowD
     (_: any, record: DataType) => {
       const rawValue = getFieldValue(record, [EHydraLevel.brutal])
       const damage = parseNumberSafe(rawValue)
-      return damage > 0 ? <Tag color="orange">{formatLocalized(damage)}</Tag> : '-'
+      return damage > 0 ? (
+        <Tag color="orange">{formatLocalized(damage)}</Tag>
+      ) : (
+        '-'
+      )
     },
     [getFieldValue]
   )

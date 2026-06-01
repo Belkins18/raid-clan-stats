@@ -24,7 +24,11 @@ export const Brand = ({ className, text, ...rest }: IBrandProps) => {
         }}
         {...{ ...rest }}
       >
-        <Avatar src={<img src={'/logo.avif'} alt="avatar" style={{ flexShrink: 0 }} />} />
+        <Avatar
+          src={
+            <img src={'/logo.avif'} alt="avatar" style={{ flexShrink: 0 }} />
+          }
+        />
         <Text
           style={{
             textWrap: 'wrap',

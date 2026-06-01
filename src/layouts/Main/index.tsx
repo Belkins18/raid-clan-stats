@@ -26,7 +26,10 @@ export const MainLayout: FC<IMainLayoutProps> = ({ pageNavigation }) => {
             <Route path="/" element={<HomePage />} />
             <Route path="/hydra">
               <Route index element={<HydraPage.Main.Layout />} />
-              <Route path=":user" element={<HydraPage.Main.Slug.StatisticPage />} />
+              <Route
+                path=":user"
+                element={<HydraPage.Main.Slug.StatisticPage />}
+              />
             </Route>
             <Route path="/chimera" element={<ChimeraPage />} />
           </Routes>

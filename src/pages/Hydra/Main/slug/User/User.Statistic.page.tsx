@@ -15,13 +15,16 @@ export const StatisticPage = () => {
 
   const { data: hydraStatisticsData, loading } = useHydraStatistics({})
 
-  const [hydraTableData, setHydraTableData] = useState<dataType.IHydraStatisticsData[]>()
+  const [hydraTableData, setHydraTableData] =
+    useState<dataType.IHydraStatisticsData[]>()
   const [checked, setChecked] = useState(true)
 
   useEffect(() => {
     if (!user || !hydraStatisticsData) return
 
-    const userData = hydraStatisticsData.reduce<dataType.IHydraStatisticsData[]>((acc, statisticsData) => {
+    const userData = hydraStatisticsData.reduce<
+      dataType.IHydraStatisticsData[]
+    >((acc, statisticsData) => {
       const { id, data } = statisticsData
       const dataByUser = data.filter((item) => item.name === user)
 
@@ -48,7 +51,9 @@ export const StatisticPage = () => {
           {label}
         </Checkbox>
 
-        {hydraTableData && <UserStatistics statisticsData={hydraTableData} checked={checked} />}
+        {hydraTableData && (
+          <UserStatistics statisticsData={hydraTableData} checked={checked} />
+        )}
       </Card>
     </Flex>
   )

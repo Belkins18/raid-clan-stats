@@ -1,4 +1,5 @@
-const removeUnicodeSpaces = (input: string): string => input.replace(/[\u00A0\u202F\u2007\s]/g, '')
+const removeUnicodeSpaces = (input: string): string =>
+  input.replace(/[\u00A0\u202F\u2007\s]/g, '')
 
 export const parseNumber = (value: string): number => {
   if (typeof value !== 'string') return 0
@@ -7,7 +8,9 @@ export const parseNumber = (value: string): number => {
   return isNaN(parsed) ? 0 : parsed
 }
 
-export const parseNumberSafe = (value: string | number | undefined | null): number => {
+export const parseNumberSafe = (
+  value: string | number | undefined | null
+): number => {
   if (typeof value === 'number') return value
   if (typeof value === 'string') return parseNumber(value)
   return 0

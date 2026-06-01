@@ -13,7 +13,10 @@ import {
   getLastItemsSliderValues,
   getResponsiveVisibleItemsCount
 } from '@/components/Hydra/utils'
-import type { IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
+import type {
+  IDualAxesInterval,
+  IDualAxesLine
+} from '@/components/Hydra/Chart/types'
 
 export const AllTimeClanStatistics: FC = () => {
   const mode = useThemeStore((state) => state.mode)
@@ -54,11 +57,18 @@ export const AllTimeClanStatistics: FC = () => {
           return item.value > 1000000000 ? formatLocalized(item.value) : ''
         },
         style: {
-          fill: (d: IDualAxesInterval) => hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+          fill: (d: IDualAxesInterval) =>
+            hydraLevelsWithRate.find((item) => item.label === d.type)?.style
+              .text,
           fontWeight: 700,
           dx: 0
         },
-        layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }, { type: 'overlapHide' }]
+        layout: [
+          { type: 'interval-adjust-position' },
+          { type: 'interval-hide-overlap' },
+          { type: 'adjust-color' },
+          { type: 'overlapHide' }
+        ]
       },
       {
         position: 'outside',
@@ -73,7 +83,10 @@ export const AllTimeClanStatistics: FC = () => {
         itemMarker: 'rect',
         itemMarkerFill: (d: { label: string }) => {
           if (hydraLevelsWithRate.find((item) => item.label === d.label)) {
-            return hydraLevelsWithRate.find((item) => item.label === d.label)?.style.text ?? '#000'
+            return (
+              hydraLevelsWithRate.find((item) => item.label === d.label)?.style
+                .text ?? '#000'
+            )
           }
         }
       }
@@ -81,7 +94,10 @@ export const AllTimeClanStatistics: FC = () => {
     slider: {
       x: {
         ...(isSliderReady && {
-          values: getLastItemsSliderValues(totalDamageData.length, visibleItemsCount)
+          values: getLastItemsSliderValues(
+            totalDamageData.length,
+            visibleItemsCount
+          )
         }),
         labelFormatter: (d: string) => convertDateRangeToWeeks(d)
       }
@@ -93,13 +109,15 @@ export const AllTimeClanStatistics: FC = () => {
         xField: 'period',
         yField: 'value',
         colorField: (d: IDualAxesInterval) => {
-          return hydraLevelsWithRate.find((item) => item.label === d.type)?.label
+          return hydraLevelsWithRate.find((item) => item.label === d.type)
+            ?.label
         },
         tooltip: {
           items: [
             (d: IDualAxesInterval) => {
               return {
-                color: hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+                color: hydraLevelsWithRate.find((item) => item.label === d.type)
+                  ?.style.text,
                 value: formatLocalized(d.value)
               }
             }
@@ -108,11 +126,17 @@ export const AllTimeClanStatistics: FC = () => {
         style: {
           maxWidth: 80,
           stroke: (d: IDualAxesInterval) => {
-            return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text ?? '#000'
+            return (
+              hydraLevelsWithRate.find((item) => item.label === d.type)?.style
+                .text ?? '#000'
+            )
           },
           strokeWidth: 1,
           fill: (d: IDualAxesInterval) => {
-            return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.stroke ?? '#000'
+            return (
+              hydraLevelsWithRate.find((item) => item.label === d.type)?.style
+                .stroke ?? '#000'
+            )
           },
           shadowColor: '#fff'
         }
@@ -141,7 +165,10 @@ export const AllTimeClanStatistics: FC = () => {
       {loading || !isSliderReady ? (
         <Skeleton.Node active style={{ width: '100%', height: 600 }} />
       ) : (
-        <DualAxes key={`${totalDamageData.length}-${visibleItemsCount}-${mode}-${isSliderReady}`} {...config} />
+        <DualAxes
+          key={`${totalDamageData.length}-${visibleItemsCount}-${mode}-${isSliderReady}`}
+          {...config}
+        />
       )}
     </div>
   )

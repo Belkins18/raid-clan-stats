@@ -2,7 +2,10 @@
 import { type FC, useCallback, useMemo } from 'react'
 
 import { Table as AntdTable, type TableColumnsType } from 'antd'
-import { type ResizableColumnsType, useAntdResizableHeader } from 'use-antd-resizable-header'
+import {
+  type ResizableColumnsType,
+  useAntdResizableHeader
+} from 'use-antd-resizable-header'
 
 import { Hydra } from '@/components'
 import type { dataType } from '@/data'
@@ -13,7 +16,9 @@ interface IHydraTableComponent {
   statisticData: dataType.IHydraStatisticsData
 }
 
-export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData }) => {
+export const HydraTableComponent: FC<IHydraTableComponent> = ({
+  statisticData
+}) => {
   const { useTableData, useTableRenderers } = Hydra.Table.Hooks
 
   const { data = [], loading } = useTableData(statisticData.data)
@@ -31,16 +36,29 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
     }))
   )
 
-  const getFieldValue = useCallback(<K extends keyof DataType>(rowData: DataType, keys: K[]): DataType[K] | undefined => {
-    for (const key of keys) {
-      const value = rowData[key]
-      if (value !== undefined) return value
-    }
-    return undefined
-  }, [])
+  const getFieldValue = useCallback(
+    <K extends keyof DataType>(
+      rowData: DataType,
+      keys: K[]
+    ): DataType[K] | undefined => {
+      for (const key of keys) {
+        const value = rowData[key]
+        if (value !== undefined) return value
+      }
+      return undefined
+    },
+    []
+  )
 
-  const { renderName, renderNormalDamage, renderHardDamage, renderBrutalDamage, renderNightmareDamage, renderAllDamage, renderKeysUsed } =
-    useTableRenderers(getFieldValue)
+  const {
+    renderName,
+    renderNormalDamage,
+    renderHardDamage,
+    renderBrutalDamage,
+    renderNightmareDamage,
+    renderAllDamage,
+    renderKeysUsed
+  } = useTableRenderers(getFieldValue)
 
   const columns: ResizableColumnsType<TableColumnsType<DataType>> = useMemo(
     () => [
@@ -69,7 +87,8 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
       {
         title: 'Nightmare',
         render: renderNightmareDamage,
-        sorter: (a, b) => parseNumberSafe(a.Nightmare) - parseNumberSafe(b.Nightmare)
+        sorter: (a, b) =>
+          parseNumberSafe(a.Nightmare) - parseNumberSafe(b.Nightmare)
       },
       {
         title: 'Damage',
@@ -84,7 +103,15 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
         render: renderKeysUsed
       }
     ],
-    [renderName, renderNormalDamage, renderHardDamage, renderBrutalDamage, renderNightmareDamage, renderAllDamage, renderKeysUsed]
+    [
+      renderName,
+      renderNormalDamage,
+      renderHardDamage,
+      renderBrutalDamage,
+      renderNightmareDamage,
+      renderAllDamage,
+      renderKeysUsed
+    ]
   )
 
   const { components, resizableColumns, tableWidth } = useAntdResizableHeader({
@@ -96,7 +123,12 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
   })
 
   const expandedRowRender = useCallback(
-    (record: DataType, _rowIndex?: number, _indent?: unknown, expanded?: boolean) => {
+    (
+      record: DataType,
+      _rowIndex?: number,
+      _indent?: unknown,
+      expanded?: boolean
+    ) => {
       if (!expanded) return null
 
       const clanRotationDamage = data.reduce((acc, cur) => {
@@ -104,7 +136,9 @@ export const HydraTableComponent: FC<IHydraTableComponent> = ({ statisticData })
         return acc
       }, 0)
 
-      return <ExpandedRow record={record} clanRotationDamage={clanRotationDamage} />
+      return (
+        <ExpandedRow record={record} clanRotationDamage={clanRotationDamage} />
+      )
     },
     [data]
   )

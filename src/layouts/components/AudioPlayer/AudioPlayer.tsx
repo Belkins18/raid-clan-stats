@@ -1,5 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { PauseCircleOutlined, PlayCircleOutlined, StepBackwardOutlined, StepForwardOutlined } from '@ant-design/icons'
+import {
+  PauseCircleOutlined,
+  PlayCircleOutlined,
+  StepBackwardOutlined,
+  StepForwardOutlined
+} from '@ant-design/icons'
 import { Button, Flex, Slider, Tooltip, Typography } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import { style } from './audioPlayer.style'
@@ -34,9 +39,18 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ playlist }) => {
   const [duration, setDuration] = useState(0)
 
   const currentTrack = playlist[currentTrackIndex]
-  const isYoutubeTrack = typeof currentTrack !== 'string' && currentTrack.type === 'youtube'
-  const audioTrackSrc = typeof currentTrack === 'string' ? currentTrack : currentTrack.type === 'audio' ? currentTrack.src : undefined
-  const currentTrackTitle = typeof currentTrack === 'string' ? currentTrack.split('/').pop() : currentTrack.title
+  const isYoutubeTrack =
+    typeof currentTrack !== 'string' && currentTrack.type === 'youtube'
+  const audioTrackSrc =
+    typeof currentTrack === 'string'
+      ? currentTrack
+      : currentTrack.type === 'audio'
+        ? currentTrack.src
+        : undefined
+  const currentTrackTitle =
+    typeof currentTrack === 'string'
+      ? currentTrack.split('/').pop()
+      : currentTrack.title
 
   const youtubeSrc =
     typeof currentTrack !== 'string' && currentTrack.type === 'youtube'
@@ -46,7 +60,10 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ playlist }) => {
       : undefined
 
   const sendYoutubeCommand = (func: string, args: unknown[] = []) => {
-    youtubeRef.current?.contentWindow?.postMessage(JSON.stringify({ event: 'command', func, args }), 'https://www.youtube.com')
+    youtubeRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ event: 'command', func, args }),
+      'https://www.youtube.com'
+    )
   }
 
   const togglePlay = () => {
@@ -72,7 +89,9 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ playlist }) => {
   }
 
   const playPrev = () => {
-    setCurrentTrackIndex((prev) => (prev - 1 + playlist.length) % playlist.length)
+    setCurrentTrackIndex(
+      (prev) => (prev - 1 + playlist.length) % playlist.length
+    )
   }
 
   const onVolumeChange = (value: number) => {
@@ -160,17 +179,33 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ playlist }) => {
       <Flex gap={8} justify="space-between" align="center">
         <Flex gap={8} justify="space-between" align="center">
           <Button icon={<StepBackwardOutlined />} onClick={playPrev} />
-          <Button style={{ width: '64px' }} icon={isPlaying ? <PauseCircleOutlined /> : <PlayCircleOutlined />} onClick={togglePlay} />
+          <Button
+            style={{ width: '64px' }}
+            icon={isPlaying ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
+            onClick={togglePlay}
+          />
           <Button icon={<StepForwardOutlined />} onClick={playNext} />
         </Flex>
 
         <Tooltip title={`Volume: ${(volume * 100).toFixed(0)}%`}>
-          <Slider min={0} max={100} value={volume * 100} onChange={onVolumeChange} style={{ width: '25%' }} />
+          <Slider
+            min={0}
+            max={100}
+            value={volume * 100}
+            onChange={onVolumeChange}
+            style={{ width: '25%' }}
+          />
         </Tooltip>
       </Flex>
 
       <div style={style.audioProgress}>
-        <Flex gap={8} flex={1} justify="space-between" align="center" style={{ width: '100%' }}>
+        <Flex
+          gap={8}
+          flex={1}
+          justify="space-between"
+          align="center"
+          style={{ width: '100%' }}
+        >
           <Slider
             min={0}
             max={100}
@@ -181,7 +216,9 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ playlist }) => {
             style={{ width: '70%', flexShrink: 0 }}
           />
           <Text>
-            {isYoutubeTrack ? 'Live' : `${formatTime((progress / 100) * duration)} / ${formatTime(duration)}`}
+            {isYoutubeTrack
+              ? 'Live'
+              : `${formatTime((progress / 100) * duration)} / ${formatTime(duration)}`}
           </Text>
         </Flex>
         <Text strong style={style.audioTrackText}>

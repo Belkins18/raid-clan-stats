@@ -9,7 +9,10 @@ interface BaseDualAxesConfigOptions {
   gridLineWidth?: number
 }
 
-export const getLastItemsSliderValues = (itemsCount: number, visibleItemsCount: number): [number, number] => {
+export const getLastItemsSliderValues = (
+  itemsCount: number,
+  visibleItemsCount: number
+): [number, number] => {
   if (itemsCount <= visibleItemsCount) {
     return [0, 1]
   }
@@ -17,7 +20,9 @@ export const getLastItemsSliderValues = (itemsCount: number, visibleItemsCount: 
   return [(itemsCount - visibleItemsCount) / itemsCount, 1]
 }
 
-export const getResponsiveVisibleItemsCount = (containerWidth: number): number => {
+export const getResponsiveVisibleItemsCount = (
+  containerWidth: number
+): number => {
   if (!containerWidth) {
     return 20
   }
@@ -53,7 +58,10 @@ export const getBaseDualAxesConfig = ({
       color: {
         itemMarker: 'rect',
         itemMarkerFill: (d: { label: string }) => {
-          return hydraLevelsWithRate.find((item) => item.label === d.label)?.style.text ?? '#000'
+          return (
+            hydraLevelsWithRate.find((item) => item.label === d.label)?.style
+              .text ?? '#000'
+          )
         }
       }
     },

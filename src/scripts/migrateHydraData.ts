@@ -42,7 +42,9 @@ async function migrateHydraData() {
     }
 
     if (!existingRotation) {
-      const { error: statError } = await supabase.from('hydra_statistics').insert([{ id: rotation.id }])
+      const { error: statError } = await supabase
+        .from('hydra_statistics')
+        .insert([{ id: rotation.id }])
 
       if (statError) {
         hasErrors = true
@@ -55,7 +57,10 @@ async function migrateHydraData() {
       console.log(`Rotation ${rotation.id} already exists, skipping creation`)
     }
 
-    const { error: deleteError } = await supabase.from('hydra_user_statistics').delete().eq('hydra_id', rotation.id)
+    const { error: deleteError } = await supabase
+      .from('hydra_user_statistics')
+      .delete()
+      .eq('hydra_id', rotation.id)
 
     if (deleteError) {
       hasErrors = true
@@ -73,7 +78,9 @@ async function migrateHydraData() {
       key_used: user.keyUsed
     }))
 
-    const { error: usersError } = await supabase.from('hydra_user_statistics').insert(rows)
+    const { error: usersError } = await supabase
+      .from('hydra_user_statistics')
+      .insert(rows)
 
     if (usersError) {
       hasErrors = true
@@ -96,12 +103,18 @@ function validateServiceRoleKey(key: string) {
   const parts = key.split('.')
 
   if (parts.length !== 3) {
-    throw new Error('SUPABASE_SERVICE_ROLE_KEY must be the legacy service_role JWT key from Supabase Project Settings > API')
+    throw new Error(
+      'SUPABASE_SERVICE_ROLE_KEY must be the legacy service_role JWT key from Supabase Project Settings > API'
+    )
   }
 
-  const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8')) as { role?: string }
+  const payload = JSON.parse(
+    Buffer.from(parts[1], 'base64url').toString('utf8')
+  ) as { role?: string }
 
   if (payload.role !== 'service_role') {
-    throw new Error(`SUPABASE_SERVICE_ROLE_KEY must have role=service_role, received role=${payload.role ?? 'missing'}`)
+    throw new Error(
+      `SUPABASE_SERVICE_ROLE_KEY must have role=service_role, received role=${payload.role ?? 'missing'}`
+    )
   }
 }

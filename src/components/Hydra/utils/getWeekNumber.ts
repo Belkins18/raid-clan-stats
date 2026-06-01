@@ -6,9 +6,18 @@ export const getWeekNumber = (date: Date): number => {
   target.setDate(target.getDate() + 3 - ((target.getDay() + 6) % 7))
 
   const firstThursday = new Date(target.getFullYear(), 0, 4)
-  firstThursday.setDate(firstThursday.getDate() + 3 - ((firstThursday.getDay() + 6) % 7))
+  firstThursday.setDate(
+    firstThursday.getDate() + 3 - ((firstThursday.getDay() + 6) % 7)
+  )
 
-  const weekNumber = 1 + Math.round(((target.getTime() - firstThursday.getTime()) / 86400000 - 3 + ((firstThursday.getDay() + 6) % 7)) / 7)
+  const weekNumber =
+    1 +
+    Math.round(
+      ((target.getTime() - firstThursday.getTime()) / 86400000 -
+        3 +
+        ((firstThursday.getDay() + 6) % 7)) /
+        7
+    )
 
   return weekNumber
 }

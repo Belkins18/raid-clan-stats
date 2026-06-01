@@ -5,7 +5,10 @@ import { Skeleton } from 'antd'
 import { Hydra } from '@/components'
 import type { IClanResultData } from '@/components/Hydra/Chart/types'
 import { formatLocalized } from '@/components/Hydra/utils'
-import { getHydraLevelStyle, hydraLevelsWithRate } from '@/components/Hydra/utils/constants'
+import {
+  getHydraLevelStyle,
+  hydraLevelsWithRate
+} from '@/components/Hydra/utils/constants'
 import { dataType } from '@/data'
 import { useElementWidth } from '@/hooks'
 import { useHydraStatistics } from '@/hooks/useHydraStatistics'
@@ -16,7 +19,9 @@ interface IRotationStatisticsProps {
   rotationId: string
 }
 
-export const RotationStatistics: FC<IRotationStatisticsProps> = ({ rotationId }) => {
+export const RotationStatistics: FC<IRotationStatisticsProps> = ({
+  rotationId
+}) => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
   const [isChartReady, setIsChartReady] = useState(false)
@@ -69,11 +74,17 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ rotationId })
 
     style: {
       stroke: (d: IClanResultData) => {
-        return hydraLevelsWithRate.find((item) => item.label === d.category)?.style.stroke ?? '#fff'
+        return (
+          hydraLevelsWithRate.find((item) => item.label === d.category)?.style
+            .stroke ?? '#fff'
+        )
       },
       strokeWidth: 10,
       fill: (d: IClanResultData) => {
-        return hydraLevelsWithRate.find((item) => item.label === d.category)?.style.stroke ?? '#fff'
+        return (
+          hydraLevelsWithRate.find((item) => item.label === d.category)?.style
+            .stroke ?? '#fff'
+        )
       }
     },
     tooltip: {
@@ -106,7 +117,9 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ rotationId })
       color: {
         itemMarker: 'rect',
         itemMarkerFill: (d: { label: string }) => {
-          const level = hydraLevelsWithRate.find((item) => item.label === d.label)
+          const level = hydraLevelsWithRate.find(
+            (item) => item.label === d.label
+          )
 
           if (level) {
             return isDark ? level.style.textDark : level.style.text
@@ -124,7 +137,10 @@ export const RotationStatistics: FC<IRotationStatisticsProps> = ({ rotationId })
       {loading || !isChartReady ? (
         <Skeleton.Node active style={{ width: '100%', height: 700 }} />
       ) : (
-        <Hydra.Chart.BarChart key={`${rotationId}-${data.length}-${chartWidth}-${mode}-${isChartReady}`} config={config} />
+        <Hydra.Chart.BarChart
+          key={`${rotationId}-${data.length}-${chartWidth}-${mode}-${isChartReady}`}
+          config={config}
+        />
       )}
     </div>
   )

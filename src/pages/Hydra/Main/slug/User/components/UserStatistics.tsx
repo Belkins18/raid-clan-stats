@@ -14,14 +14,20 @@ import { dataType } from '@/data'
 import { useElementWidth } from '@/hooks'
 import { useThemeStore } from '@/store'
 import { DualAxes } from '@ant-design/plots'
-import type { IDualAxesInterval, IDualAxesLine } from '@/components/Hydra/Chart/types'
+import type {
+  IDualAxesInterval,
+  IDualAxesLine
+} from '@/components/Hydra/Chart/types'
 
 interface IUserStatisticsProps {
   statisticsData: dataType.IHydraStatisticsData[]
   checked: boolean
 }
 
-export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, checked }) => {
+export const UserStatistics: FC<IUserStatisticsProps> = ({
+  statisticsData,
+  checked
+}) => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
   const [isSliderReady, setIsSliderReady] = useState(false)
@@ -64,7 +70,11 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
   )
 
   const totalDamageData: IDualAxesLine[] = transformData.flatMap(
-    (item: { period: string; totalDamage: number; labelTotalDamage: string }) => ({
+    (item: {
+      period: string
+      totalDamage: number
+      labelTotalDamage: string
+    }) => ({
       period: item.period,
       damage: item.totalDamage,
       label: item.labelTotalDamage
@@ -94,11 +104,18 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
           return item.value > 100000000 ? formatLocalized(item.value) : ''
         },
         style: {
-          fill: (d: IDualAxesInterval) => hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+          fill: (d: IDualAxesInterval) =>
+            hydraLevelsWithRate.find((item) => item.label === d.type)?.style
+              .text,
           fontWeight: 700,
           dx: 0
         },
-        layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }, { type: 'overlapHide' }]
+        layout: [
+          { type: 'interval-adjust-position' },
+          { type: 'interval-hide-overlap' },
+          { type: 'adjust-color' },
+          { type: 'overlapHide' }
+        ]
       },
       {
         position: 'outside',
@@ -113,7 +130,10 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         itemMarker: 'rect',
         itemMarkerFill: (d: { label: string }) => {
           if (hydraLevelsWithRate.find((item) => item.label === d.label)) {
-            return hydraLevelsWithRate.find((item) => item.label === d.label)?.style.text ?? '#000'
+            return (
+              hydraLevelsWithRate.find((item) => item.label === d.label)?.style
+                .text ?? '#000'
+            )
           }
         }
       }
@@ -121,7 +141,10 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
     slider: {
       x: {
         ...(isSliderReady && {
-          values: getLastItemsSliderValues(totalDamageData.length, visibleItemsCount)
+          values: getLastItemsSliderValues(
+            totalDamageData.length,
+            visibleItemsCount
+          )
         }),
         labelFormatter: (d: string) => convertDateRangeToWeeks(d)
       }
@@ -137,7 +160,8 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
           items: [
             (d: IDualAxesInterval) => {
               return {
-                color: hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text,
+                color: hydraLevelsWithRate.find((item) => item.label === d.type)
+                  ?.style.text,
                 value: formatLocalized(d.value)
               }
             }
@@ -146,11 +170,17 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
         style: {
           maxWidth: 80,
           stroke: (d: IDualAxesInterval) => {
-            return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.text ?? '#000'
+            return (
+              hydraLevelsWithRate.find((item) => item.label === d.type)?.style
+                .text ?? '#000'
+            )
           },
           strokeWidth: 1,
           fill: (d: IDualAxesInterval) => {
-            return hydraLevelsWithRate.find((item) => item.label === d.type)?.style.stroke ?? '#000'
+            return (
+              hydraLevelsWithRate.find((item) => item.label === d.type)?.style
+                .stroke ?? '#000'
+            )
           },
           shadowColor: '#fff'
         }
@@ -179,7 +209,10 @@ export const UserStatistics: FC<IUserStatisticsProps> = ({ statisticsData, check
       {!isSliderReady ? (
         <Skeleton.Node active style={{ width: '100%', height: 600 }} />
       ) : (
-        <DualAxes key={`${totalDamageData.length}-${checked}-${visibleItemsCount}-${mode}-${isSliderReady}`} {...config} />
+        <DualAxes
+          key={`${totalDamageData.length}-${checked}-${visibleItemsCount}-${mode}-${isSliderReady}`}
+          {...config}
+        />
       )}
     </div>
   )

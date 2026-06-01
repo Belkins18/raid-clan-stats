@@ -10,7 +10,8 @@ import { playlist } from './playlist'
 export const Footer: FC = () => {
   return (
     <Layout.Footer style={style.footer}>
-      <LayoutComponents.AudioPlayer playlist={playlist} />©{new Date().getFullYear()} Created by Belkins{' '}
+      <LayoutComponents.AudioPlayer playlist={playlist} />©
+      {new Date().getFullYear()} Created by Belkins{' '}
       <p>
         Build: {__APP_VERSION__} ({__BUILD_DATE__})
       </p>

@@ -24,7 +24,11 @@ export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items = [] }) => {
       const url = `/${levelPath.slice(0, index + 1).join('/')}`
 
       return {
-        title: isLast ? decodeURIComponent(item) : <Link to={url}>{decodeURIComponent(item)}</Link>
+        title: isLast ? (
+          decodeURIComponent(item)
+        ) : (
+          <Link to={url}>{decodeURIComponent(item)}</Link>
+        )
       }
     })
 
@@ -42,5 +46,10 @@ export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items = [] }) => {
     ...dynamicItems
   ]
 
-  return <Breadcrumb style={{ margin: '16px', textTransform: 'capitalize' }} items={[...items, ...breadcrumbItems]} />
+  return (
+    <Breadcrumb
+      style={{ margin: '16px', textTransform: 'capitalize' }}
+      items={[...items, ...breadcrumbItems]}
+    />
+  )
 }

@@ -43,7 +43,10 @@ export const hydraLevelsWithRate = [
   }
 ] as const
 
-export const getHydraLevelStyle = (label: dataType.THydraLevel, isDark?: boolean) => {
+export const getHydraLevelStyle = (
+  label: dataType.THydraLevel,
+  isDark?: boolean
+) => {
   const level = hydraLevelsWithRate.find((item) => item.label === label)
   if (!level) return { fill: '#fff', stroke: '#fff', text: '#fff' }
 

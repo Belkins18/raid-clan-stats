@@ -4,3 +4,5 @@ export const getLastId = (data: IHydraStatisticsData[]): string | undefined => {
   if (data.length === 0) return undefined
   return data[data.length - 1].id
 }
+
+export { createMarkdownTable, escapeMarkdownTableCell } from './markdown'

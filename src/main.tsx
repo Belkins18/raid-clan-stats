@@ -27,7 +27,10 @@ const ThemedApp = () => {
   return (
     <ConfigProvider
       theme={{
-        algorithm: mode === 'dark' ? antdTheme.defaultAlgorithm : antdTheme.compactAlgorithm,
+        algorithm:
+          mode === 'dark'
+            ? antdTheme.defaultAlgorithm
+            : antdTheme.compactAlgorithm,
         token: {
           colorPrimary: mode === 'dark' ? '#000' : '#000'
           // colorBgBase: mode === 'dark' ? '#fff' : '#fff',
