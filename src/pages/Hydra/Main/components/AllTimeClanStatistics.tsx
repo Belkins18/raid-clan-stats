@@ -18,13 +18,19 @@ import type {
   IDualAxesLine
 } from '@/components/Hydra/Chart/types'
 
-export const AllTimeClanStatistics: FC = () => {
+interface IAllTimeClanStatisticsProps {
+  yearCode: string
+}
+
+export const AllTimeClanStatistics: FC<IAllTimeClanStatisticsProps> = ({
+  yearCode
+}) => {
   const mode = useThemeStore((state) => state.mode)
   const isDark = mode === 'dark'
   const [isSliderReady, setIsSliderReady] = useState(false)
   const [chartWrapperRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
-  const { computedData, loading } = useHydraStatistics({})
+  const { computedData, loading } = useHydraStatistics({ yearCode })
   const visibleItemsCount = getResponsiveVisibleItemsCount(chartWidth)
 
   const levelDamageData: IDualAxesInterval[] = []
@@ -43,7 +49,7 @@ export const AllTimeClanStatistics: FC = () => {
     })
 
     return () => window.cancelAnimationFrame(frameId)
-  }, [totalDamageData.length, visibleItemsCount, mode])
+  }, [totalDamageData.length, visibleItemsCount, mode, yearCode])
 
   const config = {
     ...getBaseDualAxesConfig({
@@ -166,7 +172,7 @@ export const AllTimeClanStatistics: FC = () => {
         <Skeleton.Node active style={{ width: '100%', height: 600 }} />
       ) : (
         <DualAxes
-          key={`${totalDamageData.length}-${visibleItemsCount}-${mode}-${isSliderReady}`}
+          key={`${yearCode}-${totalDamageData.length}-${visibleItemsCount}-${mode}-${isSliderReady}`}
           {...config}
         />
       )}

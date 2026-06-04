@@ -131,7 +131,7 @@ export const Layout = () => {
           <Space>
             <Text>Select year:</Text>
             <Select
-              defaultValue={yearCode.toString()}
+              value={yearCode}
               onChange={yearsSelectHandler}
               options={AVAILABLE_YEARS}
               style={{ width: '100%' }}
@@ -169,7 +169,7 @@ export const Layout = () => {
         )}
       </Card>
 
-      <AllTimeClanStatistics />
+      <AllTimeClanStatistics yearCode={yearCode} />
     </Flex>
   )
 }
